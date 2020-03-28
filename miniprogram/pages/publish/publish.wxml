@@ -1,0 +1,10 @@
+
+
+
+<view>
+ 
+
+  <!--这个按钮来触发弹窗的打开-->
+  <button bindtap="handleSubmit" class="btn">新增资产项目</button>
+  <getUserInfo id="getUserInfo"></getUserInfo>
+</view>

@@ -1,0 +1,19 @@
+
+<view class="my-dialog" hidden="{{!showDialog}}">
+  <view class="my-mask"></view>
+  <view class="my-container">
+    <view class="title">{{title}}</view>
+     <view class="content">{{content}}</view>
+    <!-- <view class="content">
+      <view class="row" wx:for="{{content}}" wx:for-index="index" wx:for-item="item" wx:key="index">{{item.label}}：{{item.value}}</view>
+    </view> -->
+    <view class="btn-row">
+    <button class="confirm" hidden="{{!showDialog}}"  open-type="getUserInfo" bindgetuserinfo='getUserInfo'>确定 </button> 
+ 
+      <view class="cancel" bindtap='_cancel'>取消</view>
+    </view>
+  </view>  
+  
+</view>
+<!-- 
+<button class="my-dialog" hidden="{{!showDialog}}"  open-type="getUserInfo" bindgetuserinfo='getUserInfo'>获取头像昵称 </button>  -->

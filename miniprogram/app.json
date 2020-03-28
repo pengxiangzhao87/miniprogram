@@ -1,18 +1,9 @@
 {
   "pages": [
+    "pages/component/userInfo/userInfo",
     "pages/index/index",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
-    "pages/openapi/openapi",
-    "pages/openapi/serverapi/serverapi",
-    "pages/openapi/callback/callback",
-    "pages/openapi/cloudid/cloudid",
-    "pages/im/im",
-    "pages/im/room/room"
+    
+    "pages/publish/publish"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -20,6 +11,44 @@
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "云开发 QuickStart",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color":"#dbdbdb",
+    "selectedColor": "#37b3f4",
+    "borderStyle":"white",
+    "list": [
+      {
+
+        "pagePath": "pages/component/userInfo/userInfo",
+        "text": "消息",
+        "iconPath": "images/news.png",
+        "selectedIconPath": "images/selected_news.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "周边",
+        "iconPath": "images/location.png",
+        "selectedIconPath": "images/selected_location.png"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "text": "发布",
+        "iconPath": "images/publish.png",
+        "selectedIconPath": "images/publish.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "广场",
+        "iconPath": "images/plaza.png",
+        "selectedIconPath": "images/selected_plaza.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "我的",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/selected_my.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"

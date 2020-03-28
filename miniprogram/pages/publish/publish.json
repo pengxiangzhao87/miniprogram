@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "云函数指引",
+  "usingComponents": {
+    "getUserInfo": "/pages/component/userInfo/userInfo"
+  }
+}
