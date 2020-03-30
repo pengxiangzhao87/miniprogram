@@ -1,0 +1,16 @@
+<view class="container">
+
+  <map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" covers="{{covers}}" show-location></map>
+
+  <cover-view class="cover-view">
+    <mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+  </cover-view>
+
+
+  <view class="btn-area">
+    <button bindtap="getCenterLocation" class="page-body-button" type="primary">获取位置</button>
+    <button bindtap="moveToLocation" class="page-body-button" type="primary">移动位置</button>
+    <button bindtap="translateMarker" class="page-body-button" type="primary">移动标注</button>
+    <button bindtap="includePoints" class="page-body-button" type="primary">缩放视野展示所有经纬度</button>
+  </view>
+</view>

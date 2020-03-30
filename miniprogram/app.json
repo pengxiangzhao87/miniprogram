@@ -3,29 +3,30 @@
     "pages/publish/publish",
     "pages/index/index",
     "pages/classify/classify",
-    "pages/component/userInfo/userInfo"
+    "pages/component/userInfo/userInfo",
+    "pages/publish/publish",
+    "pages/map/map"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "OurCity",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color":"#dbdbdb",
+    "color": "#dbdbdb",
     "selectedColor": "#37b3f4",
-    "borderStyle":"white",
+    "borderStyle": "white",
     "list": [
       {
-
         "pagePath": "pages/component/userInfo/userInfo",
         "text": "消息",
         "iconPath": "images/news.png",
         "selectedIconPath": "images/selected_news.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/map/map",
         "text": "周边",
         "iconPath": "images/location.png",
         "selectedIconPath": "images/selected_location.png"

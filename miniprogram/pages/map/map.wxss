@@ -1,0 +1,27 @@
+.page-body {
+  padding: 20rpx 0;
+}
+
+.page-section-gap {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.page-body-button {
+  margin-bottom: 30rpx;
+}
+
+.btn-area {
+  margin-top: 60rpx;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 30rpx;
+}
+
+.cover-view {
+  width: 100%;
+  top: 10rpx;
+  position: absolute;
+
+  /* opacity: .7; */
+}
