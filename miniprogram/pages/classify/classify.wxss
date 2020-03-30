@@ -1,0 +1,4 @@
+.a{
+  border-bottom: 1rpx dashed ;
+  display: block;
+}

@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/component/userInfo/userInfo",
+    "pages/publish/publish",
     "pages/index/index",
-    
-    "pages/publish/publish"
+    "pages/classify/classify",
+    "pages/component/userInfo/userInfo"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
