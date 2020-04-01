@@ -21,27 +21,9 @@ Page({
   },
   //一个页面只会调用一次
   onReady: function () {
-    wx.getSetting({
-      success: (res) => {
-        //是否授权
-        if (res.authSetting["scope.userInfo"]) {
-          wx.getUserInfo({
-            success: (res) => {
-              app.globalData.authorization = true;
-              app.globalData.nickName = res.userInfo.nickName;
-              app.globalData.avatarUrl = res.userInfo.avatarUrl;
-            }
-          })
-        } else {
-          wx.removeStorage({
-            key: 'unionId'
-          })
           // 获得dialog组件
-          this.userInfo = this.selectComponent("#getUserInfo");
-          // this.userInfo.show()
-        }
-      }
-    })
+  this.userInfo = this.selectComponent("#getUserInfo");
+
      
   },
   //跳转到商品分类页
@@ -137,7 +119,7 @@ Page({
         express_type: goodsinfo.expressType,
         order_content:goodsinfo.orderContent
       },
-      success: rest => {
+      success: res => {
           // 上传图片
         var imagesList = this.data.imagesList
         for (var index in imagesList) {

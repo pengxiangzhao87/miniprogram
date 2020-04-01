@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/publish/publish",
     "pages/index/index",
     "pages/classify/classify",
     "pages/component/userInfo/userInfo",
-    "pages/publish/publish",
     "pages/map/map"
+    
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

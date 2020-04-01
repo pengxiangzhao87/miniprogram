@@ -1,0 +1,3 @@
+<button open-type="getUserInfo" lang="zh_CN" data-flag="0" bindgetuserinfo="userEnter">商户入口</button>
+
+<button open-type="getUserInfo" lang="zh_CN" data-flag="1" bindgetuserinfo="userEnter">用户入口</button>

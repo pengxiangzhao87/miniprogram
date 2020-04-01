@@ -18,7 +18,7 @@ Page({
     const db = wx.cloud.database();
     db.collection('cust_info').get({
       success(res) {
-        console.log(res)
+        console.log("index")
       }
     })
     if (!wx.cloud) {
