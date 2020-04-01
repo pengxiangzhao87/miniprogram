@@ -17,23 +17,45 @@ Page({
       longitude: 113.304520,
       iconPath: '/images/my-location.png'
     }],
-    i:1
+    i: 1
   },
-  onReady: function(e) {
+  onReady: function (e) {
     this.mapCtx = wx.createMapContext('myMap')
+    this.moveToLocation()
   },
-  getCenterLocation: function() {
+
+
+  // 获取当前定位信息
+  getLocation: function () {
+    wx.getLocation({
+      altitude: 'altitude',
+      complete: (res) => {
+        console.log("complete res ="+ JSON.stringify(res))
+      },
+      fail: (res) => {
+        console.log("fail res = "+ JSON.stringify(res))
+      },
+      highAccuracyExpireTime: 0,
+      isHighAccuracy: true,
+      success: (result) => {
+        console.log("success result = "+ JSON.stringify(result))
+      },
+      type: 'type',
+    })
+  
+  },
+  getCenterLocation: function () {
     this.mapCtx.getCenterLocation({
-      success: function(res) {
+      success: function (res) {
         console.log(res.longitude)
         console.log(res.latitude)
       }
     })
   },
-  moveToLocation: function() {
+  moveToLocation: function () {
     this.mapCtx.moveToLocation()
   },
-  translateMarker: function() {
+  translateMarker: function () {
     this.mapCtx.translateMarker({
       markerId: 1,
       autoRotate: true,
@@ -47,7 +69,7 @@ Page({
       }
     })
   },
-  includePoints: function() {
+  includePoints: function () {
     this.mapCtx.includePoints({
       padding: [10],
       points: [{
@@ -66,7 +88,7 @@ Page({
     })
   },
 
-  search: function(value) {
+  search: function (value) {
     return new Promise((resolve, reject) => {
       if (this.data.i % 2 === 0) {
         setTimeout(() => {
@@ -76,6 +98,9 @@ Page({
           }, {
             text: '搜索结果2',
             value: 2
+          }, {
+            text: '搜索结果3',
+            value: 3
           }])
         }, 200)
       } else {
@@ -89,7 +114,7 @@ Page({
       })
     })
   },
-  selectResult: function(e) {
+  selectResult: function (e) {
     console.log('select result', e.detail)
   },
 })
