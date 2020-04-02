@@ -2,6 +2,12 @@ Page({
   data: {
     latitude: 23.099994,
     longitude: 113.324520,
+    address:'',
+    businessHours:'',
+    content:'',
+    distances:'',
+    name:'',
+    number:'',
     markers: [{
       id: 1,
       latitude: 23.099994,
@@ -22,6 +28,20 @@ Page({
   onReady: function (e) {
     this.mapCtx = wx.createMapContext('myMap')
     this.moveToLocation()
+    var db = wx.cloud.database();
+    var _this = this;
+    db.collection('merchant_info').get({
+      success:function(res){
+        console.log("res = "+ res.data[0].address)
+        _this.setData({
+          address:res.data[0].address,
+          content:res.data[0].content,
+          distances:res.data[0].distances,
+          name:res.data[0].name,
+          number:res.data[0].number
+        })
+      }
+    })
   },
 
 

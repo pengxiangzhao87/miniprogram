@@ -5,5 +5,11 @@
   <cover-view class="cover-view">
     <mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
   </cover-view>
+<view class="container">
+<text>{{address}}</text>
+<text>{{name}}</text>
+<text>{{number}}</text>
+<text>{{content}}</text>
+</view>
   
 </view>
