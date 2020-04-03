@@ -5,8 +5,7 @@
     "pages/index/index",
     "pages/classify/classify",
     "pages/component/userInfo/userInfo",
-    "pages/map/map"
-    
+    "pages/home/home"
   ],
   "permission": {
     "scope.userLocation": {
@@ -32,7 +31,7 @@
         "selectedIconPath": "images/selected_news.png"
       },
       {
-        "pagePath": "pages/map/map",
+        "pagePath": "pages/home/home",
         "text": "周边",
         "iconPath": "images/location.png",
         "selectedIconPath": "images/selected_location.png"
