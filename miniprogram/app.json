@@ -1,9 +1,16 @@
 {
   "pages": [
-    "pages/login/login",
-    "pages/publish/publish",
-    "pages/index/index",
-    "pages/classify/classify",
+    "pages/common/login/login",
+    "pages/tabbar/tabbar",
+    "pages/customer/index/index",
+    "pages/customer/discover/discover",
+    "pages/customer/social/social",
+    "pages/customer/orders/orders",
+    "pages/customer/my/my",
+    "pages/merchant/news/news",
+    "pages/merchant/active/active",
+    "pages/merchant/plaza/plaza",
+    "pages/merchant/store/store",
     "pages/component/userInfo/userInfo",
     "pages/home/home"
   ],
@@ -18,43 +25,6 @@
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "OurCity",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "color": "#dbdbdb",
-    "selectedColor": "#37b3f4",
-    "borderStyle": "white",
-    "list": [
-      {
-        "pagePath": "pages/component/userInfo/userInfo",
-        "text": "消息",
-        "iconPath": "images/news.png",
-        "selectedIconPath": "images/selected_news.png"
-      },
-      {
-        "pagePath": "pages/home/home",
-        "text": "周边",
-        "iconPath": "images/location.png",
-        "selectedIconPath": "images/selected_location.png"
-      },
-      {
-        "pagePath": "pages/publish/publish",
-        "text": "发布",
-        "iconPath": "images/publish.png",
-        "selectedIconPath": "images/publish.png"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "text": "广场",
-        "iconPath": "images/plaza.png",
-        "selectedIconPath": "images/selected_plaza.png"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "text": "我的",
-        "iconPath": "images/my.png",
-        "selectedIconPath": "images/selected_my.png"
-      }
-    ]
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"

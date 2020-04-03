@@ -1,7 +1,10 @@
 
 Page({
   data:{
-    orderTypeList:[]
+    orderTypeList:[],
+    options: {
+      addGlobalClass: true,
+    }
   },
 
   onLoad: function () {

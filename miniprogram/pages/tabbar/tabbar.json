@@ -1,0 +1,15 @@
+{
+  "usingComponents": {
+    "component_index": "/pages/customer/index/index",
+    "component_discover": "/pages/customer/discover/discover",
+    "component_social": "/pages/customer/social/social",
+    "component_orders": "/pages/customer/orders/orders",
+    "component_my": "/pages/customer/my/my",
+    "component_news": "/pages/merchant/news/news",
+    "component_active": "/pages/merchant/active/active",
+    "component_plaza": "/pages/merchant/plaza/plaza",
+    "component_store": "/pages/merchant/store/store"
+  }
+}
+ 
+ 

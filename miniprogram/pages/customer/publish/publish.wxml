@@ -1,5 +1,5 @@
 <!--/pages/publish/publish.wxml-->
-
+ 
 <view>
   <form bindsubmit="formSubmit">
 

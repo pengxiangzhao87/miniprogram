@@ -1,9 +1,21 @@
 //index.js
 const app = getApp()
 
-Page({
+Component({
+  pageLifetimes: {
+    show() {
+      if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+        console.info("index")
+        this.getTabBar().setData({
+          selected: 0
+        })
+      }
+    }
+
+
+  },
   data: {
-    avatarUrl: './user-unlogin.png',
+    avatarUrl: '/images/my.png',
     userInfo: {},
     logged: false,
     takeSession: false,
@@ -18,7 +30,6 @@ Page({
     const db = wx.cloud.database();
     db.collection('cust_info').get({
       success(res) {
-        console.log("index")
       }
     })
     if (!wx.cloud) {
