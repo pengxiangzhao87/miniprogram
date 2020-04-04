@@ -70,22 +70,47 @@ Page({
     })
   },
   userEnter:function(e){
-    var role = e.target.dataset.role;
-    var db = wx.cloud.database();
-    db.collection("user_role").add({
-      data: {
-        role: role
-      },
+    // 获取用户信息
+    wx.getSetting({
       success: res => {
-        wx.setStorage({
-          key: 'role',
-          data: role,
-        })
-        wx.redirectTo({
-          url: '/pages/tabbar/tabbar'
-        })
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              var role = e.target.dataset.role;
+              var db = wx.cloud.database();
+              db.collection("user_role").add({
+                data: {
+                  role: role
+                },
+                success: res => {
+                  wx.setStorage({
+                    key: 'role',
+                    data: role,
+                  })
+                  wx.redirectTo({
+                    url: '/pages/tabbar/tabbar'
+                  })
+                }
+              })
+            }
+          })
+        } else {
+          wx.showModal({
+            title: '警告',
+            content: '您拒绝授权，无法进入小程序',
+            showCancel: false,
+            confirmText: '返回授权',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击了“返回授权”')
+              }
+            }
+          })
+        }
       }
     })
+   
   }
 
 })

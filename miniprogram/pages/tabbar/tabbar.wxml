@@ -1,13 +1,36 @@
 <!-- 组件显示 -->
-<view hidden="{{currentTab == 0? false: true}}">
-  <component_index/>
+<view hidden="{{role==0?false:true}}">
+  <view hidden="{{currentTab == 0? false: true}}">
+    <component_index/>
+  </view>
+  <view hidden="{{currentTab == 1? false: true}}">
+    <component_discover/>
+  </view>
+  <view hidden="{{currentTab == 2? false: true}}">
+    <component_social/>
+  </view>
+  <view hidden="{{currentTab == 3? false: true}}">
+    <component_orders/>
+  </view>
+  <view hidden="{{currentTab == 4? false: true}}">
+    <component_my/>
+  </view>
 </view>
-<view hidden="{{currentTab == 1? false: true}}">
-  <component_car/>
+<view hidden="{{role==1?false:true}}">
+  <view hidden="{{currentTab == 0? false: true}}">
+    <component_news/>
+  </view>
+  <view hidden="{{currentTab == 1? false: true}}">
+    <component_active/>
+  </view>
+  <view hidden="{{currentTab == 2? false: true}}">
+    <component_plaza/>
+  </view>
+  <view hidden="{{currentTab == 3? false: true}}">
+    <component_store/>
+  </view>
 </view>
-<view hidden="{{currentTab == 2? false: true}}">
-  <component_my/>
-</view>
+
 
 <!-- 自定义 tabbar -->
 <view class="nav-tabs">
