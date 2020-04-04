@@ -18,7 +18,11 @@ Component({
       type: Function,
     },
   },
-
+  pageLifetimes: {
+    show(e) {
+      
+    }
+  },
   data: {
     chats: [],
     textInputValue: '',
@@ -30,10 +34,12 @@ Component({
 
   methods: {
     onGetUserInfo(e) {
+
       this.properties.onGetUserInfo(e)
     },
 
     getOpenID() { 
+
       return this.properties.getOpenID() 
     },
 
