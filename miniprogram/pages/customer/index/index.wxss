@@ -34,7 +34,7 @@ page {
   background-color: white;
 }
 
-.userinfo-avatar[size] {
+.userinfo-avatar {
   width: 100rpx;
 }
 

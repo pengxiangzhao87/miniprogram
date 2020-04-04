@@ -1,5 +1,5 @@
 var app = getApp();
-
+var db = wx.cloud.database();
 Page({
   data:{
 
@@ -41,14 +41,13 @@ Page({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          var db = wx.cloud.database();
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
               wx.getStorage({
                 key: 'openid',
                 success: function (res) {
-                  db.collection("user_role").where({
+                  db.collection("user_info").where({
                     '_openid': res.data
                   }).get({
                     success: res => {
@@ -78,9 +77,13 @@ Page({
           wx.getUserInfo({
             success: res => {
               var role = e.target.dataset.role;
-              var db = wx.cloud.database();
-              db.collection("user_role").add({
+              db.collection("user_info").add({
                 data: {
+                  nickName:res.userInfo.nickName,
+                  gender:res.userInfo.gender,
+                  province:res.userInfo.province,
+                  city: res.userInfo.city,
+                  avatarUrl: res.userInfo.avatarUrl,
                   role: role
                 },
                 success: res => {

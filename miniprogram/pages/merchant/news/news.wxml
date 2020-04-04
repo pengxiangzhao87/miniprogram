@@ -1,2 +1,21 @@
 <!--pages/merchant/news/news.wxml-->
-<text>pages/merchant/news/news.wxml</text>
+<view class="title">
+  <text  class="big{{page==1?'':small}}" space="nbsp">最新   </text >
+  <text  class="small{{page==2?'':small}}">联系</text >
+</view>
+
+<!-- 最新 -->
+<view class="news" wx:if="{{page == 1}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani1}}">
+  <view wx:for="{{newsList}}" wx:key="index"  wx:for-item="item">
+    <view data-id="{{item._id}}" bindtap="toOrderDetail">
+      <view>{{item.order_content}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- 联系 -->
+<view class="contact" wx:if="{{page == 2}}"  bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani2}}">
+
+container2
+
+</view>
