@@ -40,7 +40,7 @@
       </block>
       <image style="width:100px;height:100px;" src="/images/cross_placeholder.png" mode="aspectFit" bindtap="uploader"/>
     </view>
-    <button form-type="submit" open-type="getUserInfo" lang="zh_CN" plain='true'>立即发布</button> 
+    <button form-type="submit" lang="zh_CN" plain='true'>立即发布</button> 
   </form>
 </view>
 

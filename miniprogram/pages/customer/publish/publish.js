@@ -1,6 +1,5 @@
 var app = getApp();
 
-
 Component({
   data: {
     //接受商品分类信息

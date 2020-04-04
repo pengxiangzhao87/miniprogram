@@ -66,7 +66,7 @@ Page({
   },
   onShow:function(e){
     var that = this;
-    role:wx.getStorage({
+    wx.getStorage({
       key: 'role',
       success: function(res) {
         that.setData({

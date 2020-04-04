@@ -16,6 +16,10 @@
 <!-- 联系 -->
 <view class="contact" wx:if="{{page == 2}}"  bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani2}}">
 
-container2
+  <view wx:for="{{contactList}}" wx:key="index"  wx:for-item="item">
+    <view data-id="{{item._id}}" bindtap="toOrderDetail">
+      <view>{{item.order_content}}</view>
+    </view>
+  </view>
 
 </view>

@@ -77,7 +77,40 @@ Component({
       if (this.data.page == 2) {
         return
       }
+      wx.getUserInfo({
+        success: res => {
+          wx.getStorage({
+            key: 'openid',
+            complete : res=>{
+              var openid = res.data;
+              db.collection('merchant_cust_contact').field({
+                orderid: true,
+                _id: false
+              }).where({
+                _openid: openid
+              }).orderBy('createDate', 'desc').get({
+                success: res => {
+                  var iddata = [];
+                  for (var index in res.data) {
+                    iddata[index] = res.data[index].orderid
+                  }
+                  db.collection('cust_order').where({
+                    _id: db.command.in(iddata)
+                  }).get({
+                    success: res => {
+                      that.setData({
+                        contactList: res.data
+                      })
+                    }
+                  })
 
+                }
+              })
+            }
+          })
+        }
+      })
+    
       var animation = wx.createAnimation({
         duration: 1000,
         timingFunction: 'ease',

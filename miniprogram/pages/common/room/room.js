@@ -1,4 +1,5 @@
 const app = getApp()
+var db = wx.cloud.database();
 
 Page({
   data: {
@@ -22,6 +23,27 @@ Page({
     this.setData({
       chatRoomGroupId: e.groupid
     })
+    var orderid = e.orderid;
+    //更新最后聊天时间，用于在'联系'显示
+    db.collection('merchant_cust_contact').where({
+      _openid: e.groupid.split('__')[1],
+      orderid: orderid
+    }).update({
+      data:{
+        createDate:new Date()
+      },
+      success:res=>{
+        if(res.stats.updated==0){
+          db.collection('merchant_cust_contact').add({
+            data: {
+              orderid: orderid,
+              createDate:new Date()
+            }
+          })
+        }
+      }
+    })
+
     // 获取用户信息
     wx.getSetting({
       success: res => {

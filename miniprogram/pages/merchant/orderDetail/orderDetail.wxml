@@ -3,7 +3,7 @@
 <view>
   <view>{{custOrder.order_content}}</view>
   <view>{{userInfo.nickName}}</view>
-  <navigator url="/pages/common/room/room?groupid={{custOrder._openid}}__{{userInfo._openid}}" open-type="navigate" class="uploader-text">
+  <navigator url="/pages/common/room/room?groupid={{custOrder._openid}}__{{userInfo._openid}}&orderid={{custOrder._id}}" open-type="navigate" class="uploader-text">
       <text>私聊</text>
   </navigator>
 </view>

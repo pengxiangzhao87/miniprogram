@@ -46,7 +46,7 @@ Page({
             success: res => {
               wx.getStorage({
                 key: 'openid',
-                success: function (res) {
+                complete: function (res) {
                   db.collection("user_info").where({
                     '_openid': res.data
                   }).get({
