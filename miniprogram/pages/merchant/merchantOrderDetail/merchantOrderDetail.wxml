@@ -1,0 +1,9 @@
+<!--pages/merchant/merchantOrderDetail/merchantOrderDetail.wxml-->
+<view>
+  <view>{{merchantOrder.orderContent}}</view>
+  <view>{{merchantInfo.name}}</view>
+  <navigator url="/pages/common/room/room?groupid={{custOrder._openid}}__{{merchantInfo._openid}}__{{merchantOrder._id}}" open-type="navigate" class="uploader-text">
+      <text>消息</text>
+  </navigator>
+</view>
+

@@ -1,6 +1,6 @@
 // pages/merchant/active/active.js
+var util = require('../../../utils/util.js')
 var db = wx.cloud.database();
-
 
 Component({
   pageLifetimes: {
@@ -98,58 +98,61 @@ Component({
     enlargeImg: function (e) {
       var index = e.target.dataset.index
       var imagesList = this.data.imagesList
-      console.info(imagesList)
       wx.previewImage({
         current: imagesList[index],  //当前预览的图片
-        urls: imagesList,  //所有要预览的图片
+        urls: imagesList  //所有要预览的图片
       })
     },
 
     formSubmit:function(e){   
       //上传图片
-      db.collection('merchant_order').add({
-        data: {
-          create_date: new Date(),
-          orderContent: e.detail.value.orderContent,
-          state:0
-        },
-        success: res => {
-          var orderid = res._id;
-          wx.getStorage({
-            key: 'openid',
-            complete: res => {
-              var openid = res.data;
-              // 上传图片
-              var imagesList = this.data.imagesList
-              for (var index in imagesList) {
-                wx.cloud.uploadFile({
-                  cloudPath: openid + "/" + orderid+'_'+index,
-                  filePath: imagesList[index],
-                  success: res => {
-                    //跳转到消息tbar页
-                    // wx.switchTab({
-                    //   url: '/pages/index/index',
-                    //   success: res => {
-                    //     wx.showToast({
-                    //       icon: 'none',
-                    //       title: '上传成功'
-                    //     })
-                    //   }
-                    // })
-                  },
-                  fail: e => {
-                    wx.showToast({
-                      icon: 'none',
-                      title: '上传失败'
-                    })
-                  },
-                  complete: () => {
-                  }
+      wx.getStorage({
+        key: 'openid',
+        complete: res => {
+          var openid = res.data;
+          // 上传图片
+          var imagesList = this.data.imagesList
+          var fileID ='';
+          var timestamp = Date.parse(new Date());
+          var flag = 0;
+          for (var index in imagesList) {
+            console.info(index);
+            console.info(imagesList.length);
+            wx.cloud.uploadFile({
+              cloudPath: openid + "/" + timestamp+'_'+index,
+              filePath: imagesList[index],
+              success: res => {
+                fileID += res.fileID +',';
+              },
+              fail: e => {
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败'
                 })
+              },
+              complete: () => {
+                //都上传完以后，新增订单
+                if (flag == imagesList.length-1){
+                  db.collection('merchant_order').add({
+                    data: {
+                      create_date: util.formatTime(new Date()),
+                      orderContent: e.detail.value.orderContent,
+                      state: '0',
+                      fileID: fileID.substring(0,fileID.length-1)
+                    },
+                    success: res => {
+                      //跳转到广场
+                      wx.redirectTo({
+                        url: '/pages/tabbar/tabbar?currentTab=2'
+                      })
+                    }
+                  })
+                }else{
+                  ++flag;
+                }
               }
-            }
-          })
-          
+            })
+          }
         }
       })
     }

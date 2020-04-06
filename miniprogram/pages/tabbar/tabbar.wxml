@@ -1,33 +1,33 @@
 <!-- 组件显示 -->
 <view hidden="{{role==0?false:true}}">
   <view hidden="{{currentTab == 0? false: true}}">
-    <component_index/>
+    <component_index class="component_index"/>
   </view>
   <view hidden="{{currentTab == 1? false: true}}">
-    <component_discover/>
+    <component_discover class="component_discover"/>
   </view>
   <view hidden="{{currentTab == 2? false: true}}">
-    <component_social/>
+    <component_social class="component_social"/>
   </view>
   <view hidden="{{currentTab == 3? false: true}}">
-    <component_orders/>
+    <component_orders class="component_orders"/>
   </view>
   <view hidden="{{currentTab == 4? false: true}}">
-    <component_my/>
+    <component_my class="component_my"/>
   </view>
 </view>
 <view hidden="{{role==1?false:true}}">
   <view hidden="{{currentTab == 0? false: true}}">
-    <component_news/>
+    <component_news class="component_news"/>
   </view>
   <view hidden="{{currentTab == 1? false: true}}">
-    <component_active/>
+    <component_active class="component_active"/>
   </view>
   <view hidden="{{currentTab == 2? false: true}}">
-    <component_plaza/>
+    <component_plaza class="component_plaza"/>
   </view>
   <view hidden="{{currentTab == 3? false: true}}">
-    <component_store/>
+    <component_store class="component_store"/>
   </view>
 </view>
 

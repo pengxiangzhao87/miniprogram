@@ -15,6 +15,7 @@ cloud.init({
  * event 参数包含小程序端调用传入的 data
  * 
  */
+
 exports.main = (event, context) => {
   console.log(event)
   console.log(context)

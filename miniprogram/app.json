@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/common/login/login",
     "pages/tabbar/tabbar",
+    "pages/common/login/login",
     "pages/customer/index/index",
     "pages/customer/discover/discover",
     "pages/customer/social/social",
@@ -24,7 +24,9 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "OurCity",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance":10
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"

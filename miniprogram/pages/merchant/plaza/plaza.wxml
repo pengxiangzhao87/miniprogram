@@ -1,2 +1,36 @@
 <!--pages/merchant/plaza/plaza.wxml-->
-<text>pages/merchant/plaza/plaza.wxml</text>
+
+<view class="title">
+  <text  class="big {{page==1?'':'small'}}" space="nbsp">我的  </text >
+  <text  class="big {{page==2?'':'small'}}" space="nbsp">最新  </text >
+  <text  class="big {{page==3?'':'small'}}">联系</text >
+</view>
+
+<!-- 我的 -->
+<view class="my" wx:if="{{page == 1}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani1}}">
+  <view wx:for="{{myList}}" wx:key="index"  wx:for-item="item">
+    <view data-id="{{item._id}}" bindtap="toMerchantOrderDetail">
+      <view>{{item.orderContent}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- 最新 -->
+<view class="news" wx:if="{{page == 2}}"  bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani2}}">
+  <view wx:for="{{newsList}}" wx:key="index"  wx:for-item="item">
+    <view data-id="{{item._id}}" bindtap="toMerchantOrderDetail">
+      <view>{{item.orderContent}}</view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 联系 -->
+<view class="contact" wx:if="{{page == 3}}"  bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani3}}">
+  <view wx:for="{{contactList}}" wx:key="index"  wx:for-item="item">
+    <view data-id="{{item._id}}" bindtap="toMerchantOrderDetail">
+      <view>{{item.orderContent}}</view>
+    </view>
+  </view>
+
+</view>

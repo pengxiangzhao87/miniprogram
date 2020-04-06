@@ -1,3 +1,4 @@
+var util = require('../../../utils/util.js')
 const app = getApp()
 var db = wx.cloud.database();
 
@@ -19,25 +20,24 @@ Page({
   },
 
   onLoad: function(e) {
-    //用户openid加两个下划线，加商家openid作为聊天室唯一groupid
+    //用户openid,加两个下划线，加商家openid,加两个下划线,加订单ID，作为聊天室唯一groupid
     this.setData({
       chatRoomGroupId: e.groupid
     })
-    var orderid = e.orderid;
-    //更新最后聊天时间，用于在'联系'显示
+    //更新商家端，消息-联系，最后聊天时间
     db.collection('merchant_cust_contact').where({
       _openid: e.groupid.split('__')[1],
-      orderid: orderid
+      orderid: e.groupid.split('__')[2]
     }).update({
       data:{
-        createDate:new Date()
+        createDate: util.formatTime(new Date())
       },
       success:res=>{
         if(res.stats.updated==0){
           db.collection('merchant_cust_contact').add({
             data: {
-              orderid: orderid,
-              createDate:new Date()
+              orderid: e.groupid.split('__')[2],
+              createDate: util.formatTime(new Date())
             }
           })
         }

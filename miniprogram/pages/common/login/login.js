@@ -5,6 +5,7 @@ Page({
 
   },
   onLoad:function(){
+
     //获取用户唯一ID
     wx.login({
       success: function (res) {
@@ -37,36 +38,7 @@ Page({
     })
   },
   onShow:function(){
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              wx.getStorage({
-                key: 'openid',
-                complete: function (res) {
-                  db.collection("user_info").where({
-                    '_openid': res.data
-                  }).get({
-                    success: res => {
-                      wx.setStorage({
-                        key: 'role',
-                        data: res.data[0].role
-                      })
-                      wx.redirectTo({
-                        url: '/pages/tabbar/tabbar',
-                      })
-                    }
-                  })
-                }
-              })
-            }
-          })
-        }
-      }
-    })
+    wx.hideHomeButton();
   },
   userEnter:function(e){
     // 获取用户信息
@@ -99,6 +71,7 @@ Page({
             }
           })
         } else {
+          console.info('login')
           wx.showModal({
             title: '警告',
             content: '您拒绝授权，无法进入小程序',
