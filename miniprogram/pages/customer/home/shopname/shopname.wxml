@@ -1,0 +1,40 @@
+<view>
+	<view class="shop">
+		<text class="shop-number">{{merchantInfo.number}}</text>
+		<icon class="icon-box-img shop-icon" type="info" size="33" bindtap="onAttention"></icon>
+		<icon class="icon-box-img shop-icon" type="info" size="33" bindtap="onSeeMore"></icon>
+	</view>
+	<view class="shop shop-text">
+		<text class="shop-number">{{merchantInfo.address}}</text>
+	</view>
+	<view class="shop shop-text">
+		<text class="shop-number">{{merchantInfo.business_hours}}</text>
+	</view>
+	<view class="shop-text shop-text-image">
+		<text class="shop-number">{{merchantInfo.content}}</text>
+		<view class="shop shop-flex">
+			<icon class="icon-box-img shop-flex-image " type="info" size="90"></icon>
+			<icon class="icon-box-img shop-flex-image" type="info" size="90"></icon>
+		</view>
+	</view>
+	<view class="shop height-line"></view>
+	<view class="shop">
+		<text class="shop-last-state">最近动态</text>
+	</view>
+	<view class="shop">
+		<icon class="icon-box-img shop-icon " type="info" size="30"></icon>
+		<text class="shop-name">{{merchantInfo.name}}</text>
+		<text class="shop-name-right">2020/04/05</text>
+	</view>
+	<view class="shop">
+		<text class="shop-name-min">{{merchantInfo.content}}，{{merchantInfo.name}}，{{merchantInfo.address}}，{{merchantInfo.number}}。</text>
+	</view>
+	<view class="shop shop-flex">
+		<icon class="icon-box-img shop-flex-image" type="info" size="90"></icon>
+		<icon class="icon-box-img shop-flex-image" type="info" size="90"></icon>
+		<icon class="icon-box-img shop-flex-image" type="info" size="90"></icon>
+	</view>
+		<view class="shop shop-text">
+		<text class="shop-dis">{{merchantInfo.distances}}</text>
+	</view>
+</view>

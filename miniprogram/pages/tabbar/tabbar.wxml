@@ -1,5 +1,5 @@
 <!-- 组件显示 -->
-<view hidden="{{role==0?false:true}}">
+<view class="page" hidden="{{role==0?false:true}}">
   <view hidden="{{currentTab == 0? false: true}}">
     <component_index class="component_index"/>
   </view>
@@ -16,7 +16,7 @@
     <component_my class="component_my"/>
   </view>
 </view>
-<view hidden="{{role==1?false:true}}">
+<view class="page"  hidden="{{role==1?false:true}}">
   <view hidden="{{currentTab == 0? false: true}}">
     <component_news class="component_news"/>
   </view>

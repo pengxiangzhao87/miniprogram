@@ -12,7 +12,8 @@
     "pages/merchant/plaza/plaza",
     "pages/merchant/store/store",
     "pages/component/userInfo/userInfo",
-    "pages/home/home"
+    "pages/customer/home/home",
+    "pages/customer/home/shopname/shopname"
   ],
   "permission": {
     "scope.userLocation": {

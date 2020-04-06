@@ -32,7 +32,7 @@ Page({
     ],
     customer:[
       {
-        "pagePath": "/pages/customer/index/index",
+        "pagePath": "/pages/customer/home/home",
         "text": "首页",
         "iconPath": "/images/publish.png",
         "selectedIconPath": "/images/publish.png"

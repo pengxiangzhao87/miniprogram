@@ -1,5 +1,21 @@
-.page-body {
+.home-search {
+  width: 100%;
+  display: flex;
+  /* opacity: .7; */
+  padding-left: 30rpx;
+  padding-right: 40rpx;
+}
+
+.home-search-publish {
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  margin-right: 40rpx;
+  background: #FFFFFF;
+}
+
+.home {
   padding: 20rpx 0;
+  height: inherit;
 }
 
 .page-section-gap {
@@ -25,46 +41,60 @@
 
 .search-view {
   width: 100%;
-  /* position: absolute; */
+  top: 1px;
+  position: absolute;
   /* opacity: .7; */
 }
+
 .index-hd {
   padding: 80rpx;
   text-align: center;
 }
+
 .home-list {
   margin-top: 20rpx;
   padding: 0 30rpx 40rpx;
 }
+
 .index-ft {
   padding-bottom: 20rpx;
   text-align: center;
 }
+
 .index-logo {
   width: 86rpx;
   height: 86rpx;
 }
+
 .index-desc {
   margin-top: 20rpx;
   color: #888888;
   font-size: 28rpx;
+
 }
+
 .kind-list-item {
   margin: 20rpx 0;
   background-color: #FFFFFF;
   border-radius: 4rpx;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
+
 .kind-list-item:first-child {
   margin-top: 0;
 }
-.kind-list-text{
+
+.kind-list-text {
   flex: 1;
 }
+
 .kind-list-img {
   width: 60rpx;
   height: 60rpx;
 }
+
 .kind-list-item-hd {
   padding: 30rpx;
   display: flex;
@@ -72,13 +102,59 @@
 
   transition: opacity .3s;
 }
+
 .kind-list-item-hd-show {
   opacity: .2;
 }
+
 .kind-list-item-bd {
   height: 0;
   overflow: hidden;
 }
+
 .kind-list-item-bd-show {
   height: auto;
+}
+
+.home-list-image {
+  width: 55rpx;
+  height: 55rpx;
+  display: flex;
+  vertical-align: top
+}
+
+.nav-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav_active {
+  background-color: #ececec
+}
+
+.nav-text-large {
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+
+.nav-text-view {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  min-width: 0
+}
+
+.nav-text {
+  color: rgba(0, 0, 0, 0.418);
+  flex: 1;
+  font-size: 14px;
+  padding-top: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }

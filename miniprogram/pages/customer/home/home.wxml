@@ -1,0 +1,22 @@
+<view class="home">
+	<cover-view class="home-search">
+		<mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+		<button class="home-search-publish" bindtap="onPublish">发布</button>
+	</cover-view>
+	<view class="home-list">
+		<view class="kind-list">
+			<block wx:for-items="{{merchantInfo}}" wx:key="index">
+				<view class="kind-list-item ">
+					<navigator url="../../pages/customer/home/shopname/shopname?id={{merchantInfo[index]._id}}" class="nav-box" hover-class="nav_active">
+						<!-- <image class="home-list-image" src="../../../images/icon" /> -->
+						<icon class="icon-box-img" type="info" size="93"></icon>
+						<view class="nav-text-view">
+							<view class="nav-text-large">{{merchantInfo[index].name}}</view>
+							<view class="nav-text">{{merchantInfo[index].content}}</view>
+						</view>
+					</navigator>
+				</view>
+			</block>
+		</view>
+	</view>
+</view>

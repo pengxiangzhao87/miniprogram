@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "component_index": "/pages/customer/index/index",
+    "component_index": "/pages/customer/home/home",
     "component_discover": "/pages/customer/discover/discover",
     "component_social": "/pages/customer/social/social",
     "component_orders": "/pages/customer/orders/orders",
