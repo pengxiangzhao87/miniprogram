@@ -1,46 +1,37 @@
 <!--/pages/publish/publish.wxml-->
- 
+
 <view>
-  <form bindsubmit="formSubmit">
 
-    <view class="name_container">
-      <!-- <image src="/images/name_symbole.png"/> -->
-      <text>标题</text>
-      <input name="orderName" type="text" placeholder-style='font-size:28rpx;color:#dbdbdb' placeholder="起个醒目的标题" ></input>
-      <!-- <image style="" src="/images/right_symbole.png"/>
-      <image src="/images/line.png"/> -->
-    </view>
+  <mp-cells>
+    <mp-cell link url="../index" hover value="名称" footer="商家第一时间看到">
+      <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+    </mp-cell>
 
-    <view class="classify_container" bindtap="classifyEvent">
-      <text>分类</text>
-      <input name="orderType" hidden="true" value="{{orderType._id}}"/>
-      <input type="text"  placeholder-style='font-size:28rpx;color:#dbdbdb' placeholder="选择后，将推给合适的商家" value="{{orderType.type_name}}"></input>
-    </view>
+    <mp-cell link url="../index" hover value="分类" footer="关联后推给合适的商家">
+      <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+    </mp-cell>
+    <mp-cell link url="../index" hover value="价格" footer="期望价格">
+      <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+    </mp-cell>
+  </mp-cells>
 
-    <view class="price_container">
-      <text>预期价格</text>
-      <input name="orderPrice" type="digit" placeholder-style='font-size:28rpx;color:#dbdbdb' placeholder="选择后，将推给合适的商家" ></input>
-    </view>
-
-    <view>
-      <radio-group name="expressType"> 
-          <radio value="0" checked="true"/>自取
-          <radio value="1" />送货
-      </radio-group>
-    </view>
-
-    <view>
-      <input name="orderContent" type="area" style="height:300rpx;" placeholder-style='font-size:28rpx;color:#dbdbdb' placeholder="品牌型号，时间地点"></input>
-    </view>
-
-    <view >
-      <block wx:for="{{imagesList}}" wx:key="index">
-        <image  src="/images/delete_symbole.png" style="position:relative;left:-25;" data-index="{{index}}" bindtap="deleteImg"/>
-        <image src="{{item}}"  style="width: 100%;" bindtap="enlargeImg"/>
-      </block>
-      <image style="width:100px;height:100px;" src="/images/cross_placeholder.png" mode="aspectFit" bindtap="uploader"/>
-    </view>
-    <button form-type="submit" lang="zh_CN" plain='true'>立即发布</button> 
-  </form>
+  <view class="public-radio public-radio-gap">
+    <radio-group name="radio">
+      <label>
+        <radio value="radio1" />自取 </label>
+      <label>
+        <radio value="radio2" />送货 </label>
+    </radio-group>
+  </view>
+  <view class="public-textarea">
+    <textarea auto-focus="true" style="height: 5em" placeholder="品牌型号,需要的重量,时间地点" />
+  </view>
+  <view class="page__bd">
+    <mp-cells>
+      <mp-cell>
+        <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}" files="{{files}}" max-count="5" title="图片上传" tips="请选择需要上传的图片"></mp-uploader>
+      </mp-cell>
+    </mp-cells>
+  </view>
+  <button class="public-submit" form-type="submit" lang="zh_CN" plain='true'>立即发布</button>
 </view>
-

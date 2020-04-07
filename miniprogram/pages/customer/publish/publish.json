@@ -2,6 +2,9 @@
   "navigationBarTitleText": "发布",
   "backgroundColor": "#F6F6F6",
   "usingComponents": {
-    "getUserInfo": "/pages/component/userInfo/userInfo"
+    "getUserInfo": "/pages/component/userInfo/userInfo",
+    "mp-cells": "../../../miniprogram_npm/weui-miniprogram/cells/cells",
+    "mp-cell": "../../../miniprogram_npm/weui-miniprogram/cell/cell",
+    "mp-uploader": "../../../miniprogram_npm/weui-miniprogram/uploader/uploader"
   }
 }
