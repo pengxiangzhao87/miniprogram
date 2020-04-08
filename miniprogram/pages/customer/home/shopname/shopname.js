@@ -15,7 +15,7 @@ Page({
   getMerchantInfo:function(Id){
     var db = wx.cloud.database();
     var _this = this;
-    db.collection('merchant_info').where({
+    db.collection('user_info').where({
       _id:Id
     }).get({
       success:function(res){

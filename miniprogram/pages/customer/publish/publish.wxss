@@ -38,3 +38,12 @@
   margin-top: 30rpx;
   margin-bottom: 30rpx
 }
+.public-input {
+  height: 1.58823529em;
+  min-height: 1.58823529em;
+  line-height: 1.58823529em;
+  text-align: end
+}
+.public-cell {
+  display: flex
+}

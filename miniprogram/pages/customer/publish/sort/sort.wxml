@@ -1,0 +1,7 @@
+<view>
+  <block wx:for-items="{{list}}" wx:key="index">
+    <view class="sort-list-item" catchtap="onClickType" data-bean="{{list[index]}}">
+      <text>{{list[index].type_name}}</text>
+    </view>
+  </block>
+</view>

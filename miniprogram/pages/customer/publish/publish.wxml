@@ -3,22 +3,27 @@
 <view>
 
   <mp-cells>
-    <mp-cell link url="../index" hover value="名称" footer="商家第一时间看到">
+    <view class="public-cell">
+      <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+      <mp-cell prop="name" title="名称">
+        <input bindinput="formInputChange" data-field="name" class="public-input" placeholder="商家第一时间看到" />
+      </mp-cell>
+    </view>
+    <mp-cell link url="sort/sort" hover value="分类" footer="关联后推给合适的商家">
       <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
     </mp-cell>
-
-    <mp-cell link url="../index" hover value="分类" footer="关联后推给合适的商家">
+    <view class="public-cell">
       <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
-    </mp-cell>
-    <mp-cell link url="../index" hover value="价格" footer="期望价格">
-      <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
-    </mp-cell>
+      <mp-cell prop="name" title="价格">
+        <input bindinput="formInputChange" data-field="name" class="public-input" placeholder="请输入期望价格" />
+      </mp-cell>
+    </view>
   </mp-cells>
 
   <view class="public-radio public-radio-gap">
     <radio-group name="radio">
       <label>
-        <radio value="radio1" />自取 </label>
+        <radio value="radio1" checked="true"/>自取 </label>
       <label>
         <radio value="radio2" />送货 </label>
     </radio-group>

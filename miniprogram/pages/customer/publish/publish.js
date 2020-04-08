@@ -1,5 +1,3 @@
-var app = getApp();
-
 Component({
   data: {
     //接受商品分类信息
@@ -16,17 +14,28 @@ Component({
       }
       // 获得dialog组件
       this.userInfo = this.selectComponent("#getUserInfo");
-    }
-  },
-  methods: {
-    //跳转到商品分类页
-    classifyEvent: function () {
-      wx.navigateTo({
-        url: '/pages/classify/classify'
-      })
-    },
 
-    uploader: function () {
+      console.log("show = " + JSON.stringify(this.options))
+    },
+    onLoad: function(options) {
+      console.log("1e = " + e)
+    },
+  },
+  onLoad: function (options) {
+    console.log("2e = " + e)
+  },
+  ready: function() {
+    console.log("ready = " + JSON.stringify(this.options))
+    wx.setNavigationBarTitle({
+      title: "发布",
+    })
+  },
+  attached:function(){
+    console.log("attached = " + JSON.stringify(this.options))
+  },
+
+  methods: {
+    uploader: function() {
       var that = this;
       var imageList = that.data.imagesList;
       var imagesList = [];
@@ -39,7 +48,7 @@ Component({
         count: maxLength, //最多可以选择的图片总数
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        success: function (res) {
+        success: function(res) {
           wx.showToast({
             title: '正在上传...',
             icon: 'loading',
@@ -50,7 +59,7 @@ Component({
             wx.showModal({
               content: '最多能上传' + maxLength + '张图片',
               showCancel: false,
-              success: function (res) { }
+              success: function(res) {}
             })
           }
 
@@ -61,7 +70,7 @@ Component({
               wx.showModal({
                 content: '图片太大，不允许上传',
                 showCancel: false,
-                success: function (res) { }
+                success: function(res) {}
               });
             }
 
@@ -72,14 +81,14 @@ Component({
             })
           }
         },
-        fail: function (res) {
+        fail: function(res) {
           console.log(res);
         }
       })
     },
 
     //删除图片
-    deleteImg: function (e) {
+    deleteImg: function(e) {
       var imagesList = this.data.imagesList;
       var index = e.currentTarget.dataset.index;
       imagesList.splice(index, 1);
@@ -89,18 +98,18 @@ Component({
     },
 
     //预览图片
-    enlargeImg: function (e) {
+    enlargeImg: function(e) {
       var index = e.target.dataset.index
       var imagesList = this.data.imagesList
       console.info(imagesList)
       wx.previewImage({
-        current: imagesList[index],  //当前预览的图片
-        urls: imagesList,  //所有要预览的图片
+        current: imagesList[index], //当前预览的图片
+        urls: imagesList, //所有要预览的图片
       })
     },
 
     //表单提交
-    formSubmit: function (e) {
+    formSubmit: function(e) {
       // wx.hideLoading()
       var goodsinfo = e.detail.value;
       var db = wx.cloud.database();
@@ -136,13 +145,12 @@ Component({
                   title: '上传失败'
                 })
               },
-              complete: () => {
-              }
+              complete: () => {}
             })
           }
         }
       })
     }
   }
-  
+
 })

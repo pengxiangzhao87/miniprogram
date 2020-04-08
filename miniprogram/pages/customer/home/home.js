@@ -19,7 +19,7 @@ Component({
     })
     var db = wx.cloud.database();
     var _this = this;
-    db.collection('merchant_info').get({
+    db.collection('user_info').get({
       success: function (res) {
         console.log("res = " + res.data[0].address)
         _this.setData({
