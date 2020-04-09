@@ -1,8 +1,13 @@
 Component({
+
   data: {
     //接受商品分类信息
     orderType: {},
-    imagesList: []
+    imagesList: [],
+    //当前选择的生鲜类型
+    currentType: {},
+    typeNames: [],
+    currentIndex: 0
   },
   pageLifetimes: {
     show() {
@@ -21,20 +26,41 @@ Component({
       console.log("1e = " + e)
     },
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log("2e = " + e)
   },
   ready: function() {
     console.log("ready = " + JSON.stringify(this.options))
     wx.setNavigationBarTitle({
       title: "发布",
+    });
+    var _this = this;
+    var db = wx.cloud.database();
+    db.collection("order_type").get({
+      success: function(res) {
+        console.log("res = " + JSON.stringify(res))
+        var _typeNmes = [];
+        for (var i = 0; i < res.data.length; i++) {
+          _typeNmes.push(res.data[i].type_name)
+        }
+        _this.setData({
+          typeNames: _typeNmes
+        })
+        console.log("list = " + JSON.stringify(list))
+      }
     })
   },
-  attached:function(){
+  attached: function() {
     console.log("attached = " + JSON.stringify(this.options))
   },
 
   methods: {
+    bindCountryChange: function(e) {
+      this.setData({
+        currentIndex: e.detail.value
+      })
+    },
+
     uploader: function() {
       var that = this;
       var imageList = that.data.imagesList;
