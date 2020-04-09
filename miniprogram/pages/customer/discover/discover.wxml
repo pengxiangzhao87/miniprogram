@@ -1,2 +1,11 @@
 <!--pages/costomer/discover.wxml-->
-<text>pages/costomer/discover.wxml</text>
+<view class="discover-page">
+  <view class="discover-head">
+    <button class="discover-btn" type="primary" size="mini">最近</button>
+    <view class="discover-text">最新</view>
+    <view class="discover-text">发布</view>
+    <button class="discover-btn" type="primary" size="mini">发布</button>
+  </view>
+  <view class="line"></view>
+
+</view>

@@ -13,14 +13,16 @@ Component({
    * 组件的属性列表
    */
   properties: {},
-  ready: function () {
+  ready: function() {
     this.setData({
       search: this.search.bind(this)
     })
     var db = wx.cloud.database();
     var _this = this;
-    db.collection('user_info').get({
-      success: function (res) {
+    db.collection('user_info').where({
+      role: '1'
+    }).get({
+      success: function(res) {
         console.log("res = " + res.data[0].address)
         _this.setData({
           merchantInfo: res.data
@@ -41,12 +43,12 @@ Component({
    */
   methods: {
     //发布数据
-    onPublish: function () {
+    onPublish: function() {
       wx.navigateTo({
         url: '../../pages/customer/publish/publish',
       })
     },
-    search: function (value) {
+    search: function(value) {
       return new Promise((resolve, reject) => {
         if (this.data.i % 2 === 0) {
           setTimeout(() => {
@@ -72,7 +74,7 @@ Component({
         })
       })
     },
-    selectResult: function (e) {
+    selectResult: function(e) {
       console.log('select result', e.detail)
     },
   }
