@@ -1,4 +1,8 @@
 <!-- 组件显示 -->
+<view hidden="{{dialogHidden}}">
+  <popup/>
+</view>
+
 <view class="page" hidden="{{role==0?false:true}}">
   <view hidden="{{currentTab == 0? false: true}}">
     <component_index class="component_index"/>

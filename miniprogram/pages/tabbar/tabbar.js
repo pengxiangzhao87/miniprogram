@@ -2,7 +2,8 @@ let app = getApp()
 var db = wx.cloud.database();
 Page({
   data: {
-    role:0,
+    dialogHidden:true,
+    role:1,
     currentTab: 0,
     merchant: [
       {
@@ -65,6 +66,7 @@ Page({
     ]
   },
   onLoad:function(e){
+    var that = this;
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -81,8 +83,8 @@ Page({
                     showCancel: false,
                     confirmText: '返回授权',
                     success: function (res) {
-                      wx.redirectTo({
-                        url: '/pages/common/login/login',
+                      that.setData({
+                        dialogHidden: false
                       })
                     }
                   })
@@ -96,37 +98,41 @@ Page({
                 showCancel: false,
                 confirmText: '返回授权',
                 success: function (res) {
-                  wx.redirectTo({
-                    url: '/pages/common/login/login',
+                  that.setData({
+                    dialogHidden: false
                   })
                 }
               })
             }
           })
-        } else {
-          wx.redirectTo({
-            url: '/pages/common/login/login',
+        }else{
+          that.setData({
+            dialogHidden: false
           })
         }
       }
     })
     if(e.currentTab!=undefined){
-      this.setData({
+      that.setData({
         currentTab:2
       })
     }
   },
-  onShow:function(){
-    var that = this;
-    wx.getStorage({
-      key: 'role',
-      success: function(res) {
-        that.setData({
-          role:res.data
-        })
-      },
-    })
+  showPopup() {
+    this.popup.showPopup();
+  },
 
+  //取消事件
+  // _error() {
+  //   console.log('你点击了取消');
+  //   this.popup.hidePopup();
+  // },
+  // //确认事件
+  // _success() {
+  //   console.log('你点击了确定');
+  //   this.popup.hidePopup();
+  // },
+  onShow:function(){
     wx.hideHomeButton();
   },
   swichNav: function (e) {

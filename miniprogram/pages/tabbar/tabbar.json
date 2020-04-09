@@ -8,7 +8,8 @@
     "component_news": "/pages/merchant/news/news",
     "component_active": "/pages/merchant/active/active",
     "component_plaza": "/pages/merchant/plaza/plaza",
-    "component_store": "/pages/merchant/store/store"
+    "component_store": "/pages/merchant/store/store",
+    "popup":"/pages/common/popup/popup"
   }
 }
  

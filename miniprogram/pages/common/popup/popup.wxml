@@ -1,0 +1,27 @@
+<!--pages/common/popup/popup.wxml-->
+<scroll-view scroll-y="false" hidden="{{authHidden}}"> 
+  <!--测试弹窗-->  
+  <view class="dialogMarsk" bindtap="showDialog" data-statu="close" wx:if="true"></view>  
+
+    <!--dialog-->
+  <view class="dialog {{!hiddenFlag?'':'range'}}" wx:if="true"> 
+    <view hidden="{{hiddenFlag}}">
+      <button open-type="getUserInfo" type="primary" data-role="0" style="width:300rpx;padding-left:0;padding-right:0;margin-top:120rpx;border-radius: 50px;" lang="zh_CN" data-role="0" bindgetuserinfo="userEnter">用户登录</button>
+      <button open-type="getUserInfo" type="primary" data-role="1" style="width:300rpx;padding-left:0;padding-right:0;margin-top:20rpx;border-radius: 50px;" lang="zh_CN" data-role="1" bindgetuserinfo="userEnter">商家登录</button>
+    </view>
+    <view hidden="{{!hiddenFlag}}">
+      <view class="appreciationTitle">
+        <text style="font-size:24px;">经营范围</text>
+      </view>
+
+      <checkbox-group bindchange="checkboxChange">
+        <view wx:for="{{orderTypeList}}" wx:key="index" wx:for-item="item" >
+          <checkbox value='{{item._id}}'>{{item.type_name}}</checkbox>
+        </view>
+      </checkbox-group>
+
+      <button bindtap="chooseClassify">确定</button>
+      <button bindtap="cancelClassify">取消</button>
+    </view>
+  </view>  
+</scroll-view> 

@@ -87,6 +87,7 @@ Component({
               }
             }
             var resultList = that.data.newsList.concat(result);
+            console.info(resultList)
             that.setData({
               newsList: resultList
             })

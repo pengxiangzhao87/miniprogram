@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/tabbar/tabbar",
-    "pages/common/login/login",
     "pages/customer/index/index",
     "pages/customer/discover/discover",
     "pages/customer/social/social",
