@@ -3,24 +3,24 @@
 <view>
 
   <mp-cells>
-    <view class="public-cell">
+    <view class="publish-cell">
       <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
       <mp-cell prop="name" title="名称">
-        <input bindinput="formInputChange" data-field="name" class="public-input" placeholder="商家第一时间看到" />
+        <input bindinput="formInputChange" data-field="name" class="publish-input" placeholder="商家第一时间看到" />
       </mp-cell>
     </view>
     <mp-cell link url="sort/sort" hover value="分类" footer="关联后推给合适的商家">
       <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
     </mp-cell>
-    <view class="public-cell">
+    <view class="publish-cell">
       <image slot="title" src="{{icon}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
       <mp-cell prop="name" title="价格">
-        <input bindinput="formInputChange" data-field="name" class="public-input" placeholder="请输入期望价格" />
+        <input bindinput="formInputChange" data-field="name" class="publish-input" placeholder="请输入期望价格" />
       </mp-cell>
     </view>
   </mp-cells>
 
-  <view class="public-radio public-radio-gap">
+  <view class="publish-radio publish-radio-gap">
     <radio-group name="radio">
       <label>
         <radio value="radio1" checked="true"/>自取 </label>
@@ -28,7 +28,7 @@
         <radio value="radio2" />送货 </label>
     </radio-group>
   </view>
-  <view class="public-textarea">
+  <view class="publish-textarea">
     <textarea auto-focus="true" style="height: 5em" placeholder="品牌型号,需要的重量,时间地点" />
   </view>
   <view class="page__bd">
@@ -38,5 +38,5 @@
       </mp-cell>
     </mp-cells>
   </view>
-  <button class="public-submit" form-type="submit" lang="zh_CN" plain='true'>立即发布</button>
+  <button class="publish-submit" form-type="submit" lang="zh_CN" plain='true'>立即发布</button>
 </view>

@@ -14,7 +14,7 @@
     "pages/component/userInfo/userInfo",
     "pages/customer/home/home",
     "pages/customer/home/shopname/shopname",
-    "pages/customer/public/sort/sort"
+    "pages/customer/publish/sort/sort"
   ],
   "permission": {
     "scope.userLocation": {
