@@ -3,7 +3,7 @@ var db = wx.cloud.database();
 Page({
   data: {
     dialogHidden:true,
-    role:1,
+    role:0,
     currentTab: 0,
     merchant: [
       {
@@ -76,6 +76,29 @@ Page({
             success:res=>{
               wx.getStorage({
                 key: 'role',
+                success:res=>{
+                  that.setData({
+                    role:res.data
+                  })
+                  if(res.data==1){
+                    wx.getStorage({
+                      key: 'ordertype',
+                      fail: function (res) {
+                        wx.showModal({
+                          title: '警告',
+                          content: '授权失效，请重新登陆',
+                          showCancel: false,
+                          confirmText: '返回授权',
+                          success: function (res) {
+                            that.setData({
+                              dialogHidden: false
+                            })
+                          }
+                        })
+                      }
+                    })
+                  }
+                },
                 fail: function(res) {
                   wx.showModal({
                     title: '警告',
@@ -118,21 +141,8 @@ Page({
       })
     }
   },
-  showPopup() {
-    this.popup.showPopup();
-  },
 
-  //取消事件
-  // _error() {
-  //   console.log('你点击了取消');
-  //   this.popup.hidePopup();
-  // },
-  // //确认事件
-  // _success() {
-  //   console.log('你点击了确定');
-  //   this.popup.hidePopup();
-  // },
-  onShow:function(){
+  onShow:function(e){
     wx.hideHomeButton();
   },
   swichNav: function (e) {
@@ -152,6 +162,7 @@ Page({
     }else{
       selectComponent = this.data.currentTab == 0 ? '.component_news' : (this.data.currentTab == 1 ? '.component_active' : (this.data.currentTab == 2 ? '.component_plaza' :'.component_store'));
     }
+    console.info("aa",selectComponent)
     this.selectComponent(selectComponent).reachBottom();
 
   }

@@ -27,7 +27,7 @@
     "navigationBarTitleText": "OurCity",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true,
-    "onReachBottomDistance": 10
+    "onReachBottomDistance": 50
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"

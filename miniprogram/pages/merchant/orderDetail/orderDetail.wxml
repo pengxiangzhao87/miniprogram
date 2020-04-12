@@ -1,9 +1,21 @@
 <!--pages/merchant/orderDetail/orderDetail.wxml-->
 
-<view>
-  <view>{{custOrder.order_content}}</view>
-  <view>{{userInfo.nickName}}</view>
-  <navigator url="/pages/common/room/room?groupid={{custOrder._openid}}__{{userInfo._openid}}__{{custOrder._id}}" open-type="navigate" class="uploader-text">
-      <text>私聊</text>
-  </navigator>
+<view class="contain">
+  <view class="userone">
+    <image class="user_avatar" src="{{detail.userInfo[0].avatarUrl}}"></image>
+    <view>
+      <view style="font-size:35rpx;padding-left:20rpx;">{{detail.userInfo[0].nickName}}</view>
+      <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{detail.create_date}}</view>
+    </view>  
+    <button bindtap="toRoom" style="width:100rpx;border-radius:15rpx;font-size:25rpx; background-color: #FF0066;color: white; align-content: center;padding-left:0rpx;padding-right:0rpx;margin-right:30rpx;">消息</button>
+  </view>
+  <view style="padding-top:5rpx;padding-bottom:5rpx;color:red">预估价格：￥{{detail.order_price}}</view>
+  <view>{{detail.order_content}}</view>
+
+  <view wx:for="{{detail.images}}" wx:key="index"  wx:for-item="item">
+    <image data-index="{{index}}" data-dex="0" src="{{item}}" bindtap="enlargeImg"></image>
+  </view>  
+
+
+
 </view>

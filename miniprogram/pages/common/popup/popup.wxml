@@ -21,7 +21,6 @@
       </checkbox-group>
 
       <button bindtap="chooseClassify">确定</button>
-      <button bindtap="cancelClassify">取消</button>
     </view>
   </view>  
 </scroll-view> 

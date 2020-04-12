@@ -1,19 +1,25 @@
 <!--pages/merchant/active/active.wxml-->
-<form bindsubmit="formSubmit">
-<view>
-  <button form-type="submit" lang="zh_CN" plain='true'>立即发布</button> 
-  </view>
-  <view>
-    <input name="orderContent" type="area" style="height:300rpx;" placeholder-style='font-size:28rpx;color:#dbdbdb' placeholder="描述发布的商品信息"></input>
-  </view>
-
-  <view >
-    <block wx:for="{{imagesList}}" wx:key="index">
-      <image  src="/images/delete_symbole.png" style="position:relative;left:-25;" data-index="{{index}}" bindtap="deleteImg"/>
-      <image src="{{item}}"  style="width: 100%;" bindtap="enlargeImg"/>
-    </block>
-    <image style="width:100px;height:100px;" src="/images/cross_placeholder.png" mode="aspectFit" bindtap="uploader"/>
-  </view>
+<view class="contain">
+  <form bindsubmit="formSubmit">
   
+    <view>
+      <textarea  name="orderContent" class="publish-textarea" maxlength="300" contenteditable="true"   placeholder-style='font-size:28rpx;color:#dbdbdb' placeholder="描述发布的商品信息"></textarea >
+    </view>
+
+    <view class="imageBlock">
+      <view wx:for="{{imagesList}}" wx:key="index" style="position:relative;width:30%;height:120px;padding-left:15rpx;">
+        <block >
+          <image src="{{item}}" class="block_image" style="position:relative;width:100%;height:120px;border-radius:5px;" bindtap="enlargeImg"/>
+          <image  src="/images/delete_symbole.png" class="delete" data-index="{{index}}" bindtap="deleteImg"/>
+        </block>
+      </view>
+      <image hidden="{{imagesList.length==3?true:false}}" style="width:100px;height:100px;padding-left:15rpx;background-color:#e6e6e6;" src="/images/cross_placeholder.png" mode="aspectFit" bindtap="uploader"/>
+      
+    </view>
+  
+    <button style="position:fixed;bottom:20%;width:100px;border-radius:15rpx;padding-left:0rpx;padding-right:0rpx;background-color:#FF0066;color:white;font-size:30rpx;border:none;margin-left:30%;" form-type="submit" lang="zh_CN" plain='true'>立即发布</button> 
     
-</form>
+    
+  </form>
+
+</view>

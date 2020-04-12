@@ -8,14 +8,15 @@ Component({
     * 组件的初始数据
     */
   data: {
-    page: 2,
+    page: 1,
     ani1: '',
     ani2: '',
-    ani3: '',
     myList: [],
     newsList: [],
-    contactList: []
-   
+    pageNum1: 1,
+    pageSize1: 2,
+    pageNum2: 1,
+    pageSize2: 10
   },
 
   pageLifetimes: {
@@ -27,12 +28,32 @@ Component({
           selected: 0
         })
       }
-      db.collection('merchant_order').where({
-        state: '0'
-      }).orderBy('create_date', 'desc').get({
-        success: function (res) {
-          that.setData({
-            newsList: res.data
+      wx.getStorage({
+        key: 'openid',
+        success: function(res) {
+          var openid = res.data;
+          var pageNum = that.data.pageNum1;
+          var pageSize = that.data.pageSize1;
+          wx.cloud.callFunction({
+            name: 'merchantOrder',
+            data: { openid: openid,pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
+            success: res => {
+              var result = res.result.list;
+              for (var index in result) {
+                var fileID = result[index].fileID;
+                var images = [];
+                var split = fileID.split(',');
+                for (var dex in split) {
+                  images[dex] = split[dex]
+                }
+                result[index].images = images;
+                
+              }
+              that.setData({
+                myList: result
+              })
+            },
+            fail: err => { }
           })
         }
       })
@@ -49,50 +70,102 @@ Component({
         url: '/pages/merchant/merchantOrderDetail/merchantOrderDetail?id=' + id,
       })
     },
+    reachBottom: function (e) {
+      console.info("rech")
+      var that = this;
+      if (that.data.page == 1) {
+        var num = that.data.pageNum1 + 1;
+        that.setData({
+          pageNum1: num
+        })
+        var pageSize = that.data.pageSize1;
+        //用户订单、用户信息连表查询
+        wx.getStorage({
+          key: 'openid',
+          success: function (res) {
+            var openid = res.data;
+            wx.cloud.callFunction({
+              name: 'merchantOrder',
+              data: { openid: openid, pageNum: (num - 1) * pageSize, pageSize: pageSize },
+              success: res => {
+                var result = res.result.list;
+                for (var index in result) {
+                  var fileID = result[index].fileID;
+                  var images = [];
+                  var split = fileID.split(',');
+                  for (var dex in split) {
+                    images[dex] = split[dex]
+                  }
+                  result[index].images = images;
+                }
+                var resultList = that.data.myList.concat(result);
+                that.setData({
+                  myList: resultList
+                })
+              },
+              fail: err => { }
+            })
+          }
+        })
+      } else {
+
+      }
+
+    },
     getNewsList:function(){
       var that = this;
-      db.collection('merchant_order').where({
-        state: '0'
-      }).orderBy('create_date', 'desc').get({
-        success: function (res) {
+      var pageNum = that.data.pageNum2;
+      var pageSize = that.data.pageSize2;
+      wx.cloud.callFunction({
+        name: 'merchantOrder',
+        data: {pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
+        success: res => {
+          var result = res.result.list;
+          for (var index in result) {
+            var fileID = result[index].fileID;
+            var images = [];
+            var split = fileID.split(',');
+            for (var dex in split) {
+              images[dex] = split[dex]
+            }
+            result[index].images = images;
+
+          }
           that.setData({
-            newsList: res.data
+            newsList: result
           })
-        }
+        },
+        fail: err => { }
       })
     },
     getMyList:function(){
       var that = this;
       wx.getStorage({
         key: 'openid',
-        complete: function (res) {
-          db.collection('merchant_order').where({
-            _openid: res.data,
-            state: '0'
-          }).orderBy('create_date', 'desc').get({
-            success: function (res) {
+        success: function (res) {
+          var openid = res.data;
+          var pageNum = that.data.pageNum1;
+          var pageSize = that.data.pageSize1;
+          wx.cloud.callFunction({
+            name: 'merchantOrder',
+            data: { openid: openid, pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
+            success: res => {
+              var result = res.result.list;
+              for (var index in result) {
+                var fileID = result[index].fileID;
+                var images = [];
+                var split = fileID.split(',');
+                for (var dex in split) {
+                  images[dex] = split[dex]
+                }
+                result[index].images = images;
+
+              }
               that.setData({
-                myList: res.data
+                myList: result
               })
-            }
-          })
-        }
-      })
-    },
-    getContactList:function(){
-      var that = this;
-      wx.getStorage({
-        key: 'openid',
-        complete: function (res) {
-          db.collection('merchant_order').where({
-            _openid: res.data,
-            state: '0'
-          }).orderBy('create_date', 'desc').get({
-            success: function (res) {
-              that.setData({
-                contactList: res.data
-              })
-            }
+            },
+            fail: err => { }
           })
         }
       })
@@ -125,7 +198,7 @@ Component({
     move2left() {
       var that = this;
       var page = that.data.page;
-      if (page == 3) {
+      if (page == 2) {
         return
       }else{
         var animation = wx.createAnimation({
@@ -134,32 +207,19 @@ Component({
           delay: 100
         });
         animation.opacity(0.2).translate(-500, 0).step()
-        if(page == 1){
-          //获取最新数据
-          this.getNewsList();
-          that.setData({
-            ani1: animation.export()
-          })
-          setTimeout(function () {
-            that.setData({
-              page: page + 1,
-              ani2: ''
-            });
-          }, 800)
-        }else{
-          //广场获取所有新消息
-          this.getContactList();
-          that.setData({
-            ani2: animation.export()
-          })
-          setTimeout(function () {
-            that.setData({
-              page: page + 1,
-              ani3: ''
-            });
-          }, 800)
+        //获取最新数据
+        if(that.data.newsList.length==0){
+          that.getNewsList();
         }
-        
+        that.setData({
+          ani1: animation.export()
+        })
+        setTimeout(function () {
+          that.setData({
+            page: page + 1,
+            ani2: ''
+          });
+        }, 800)       
       }
 
     },
@@ -177,29 +237,18 @@ Component({
           delay: 100
         });
         animation.opacity(0.2).translate(500, 0).step()
-        if(page == 2){
-          this.getMyList();
-          this.setData({
-            ani2: animation.export()
-          })
-          setTimeout(function () {
-            that.setData({
-              page: page-1,
-              ani1: ''
-            });
-          }, 800)
-        }else{
-          this.getNewsList();
-          this.setData({
-            ani3: animation.export()
-          })
-          setTimeout(function () {
-            that.setData({
-              page: page-1,
-              ani2: ''
-            });
-          }, 800)
-        }     
+        if(that.data.newsList.length==0){
+          that.getMyList();
+        }
+        that.setData({
+          ani2: animation.export()
+        })
+        setTimeout(function () {
+          that.setData({
+            page: page-1,
+            ani1: ''
+          });
+        }, 800)  
       }
     }
   },

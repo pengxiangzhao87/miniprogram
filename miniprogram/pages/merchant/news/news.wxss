@@ -28,7 +28,7 @@
   
 }
 
-.news .contact {
+.news, .contact {
   padding-top: 30rpx;
   padding-left: 30rpx;
   padding-right:30rpx;

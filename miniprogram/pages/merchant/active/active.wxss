@@ -1,1 +1,30 @@
 /* pages/merchant/active/active.wxss */
+.contain{
+  padding-left: 30rpx;
+  padding-right:30rpx;
+}
+
+.imageBlock{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  width:100%;
+}
+
+.delete{
+  width: 40rpx;
+  height: 40rpx;
+  position:absolute;
+  top:5px;
+  right:5px;
+
+}
+ .publish-textarea {
+  width: 100%;
+  padding: 10rpx 30rpx 10rpx 30rpx;
+  margin-bottom: 1rpx;
+  height:500rpx;
+}
+
+ 

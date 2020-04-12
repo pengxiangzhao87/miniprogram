@@ -18,29 +18,30 @@ Component({
    * 组件的初始数据
    */
   data: {
+    userInfo:{},
     orderTypeList: [],
-    userInfoId: null,
     hiddenFlag:false,
     checkBox:[],
-    authHidden:false
+    role:null,
+    authHidden:false,
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    userEnter:function(e){
-      var that = this;
-      db.collection('order_type').get({
-        success: function (res) {
-          console.info(res)
-          that.setData({
-            orderTypeList: res.data,
-            hiddenFlag: true
-          })
-        }
-      })
-    },
+    // userEnter:function(e){
+    //   var that = this;
+    //   db.collection('order_type').get({
+    //     success: function (res) {
+    //       console.info(res)
+    //       that.setData({
+    //         orderTypeList: res.data,
+    //         hiddenFlag: true
+    //       })
+    //     }
+    //   })
+    // },
     checkboxChange:function(e){
       this.setData({
         checkBox:e.detail.value
@@ -48,97 +49,147 @@ Component({
     },
 
     chooseClassify:function(){
+      var that = this;
       var orderType = '';
       var checkbox = this.data.checkBox;
+      if (checkbox.length==0){
+        wx.showToast({
+          title: '请选择至少一项',
+          duration: 1000
+        })
+      }
       for (var index in checkbox){
         orderType += checkbox[index]+',';
       }
-      db.collection("user_info").doc(this.data.userInfoId).update({
-        data:{
-          order_type: orderType.substr(0,orderType.length-1)
-        },success:res=>{
-          this.setData({
-            authHidden:true
-          })
-        }
-      })
-
-
-    },
-    cancelClassify:function(){
-
-    },
-    userEnter: function (e) {
-      var that = this;
-      // 获取用户信息
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-            wx.getUserInfo({
-              success: res => {
-                var role = e.target.dataset.role;
+      orderType = orderType.substr(0, orderType.length - 1);
+      // 已经授权
+      var userInfo = that.data.userInfo;
+      wx.getStorage({
+        key: 'openid',
+        success: function (res) {
+          db.collection("user_info").where({
+            _openid: res.data
+          }).get({
+            success: res => {
+              if (res.data.length == 0) {
                 //增加用户信息
                 db.collection("user_info").add({
                   data: {
-                    nickName: res.userInfo.nickName,
-                    gender: res.userInfo.gender,
-                    province: res.userInfo.province,
-                    city: res.userInfo.city,
-                    avatarUrl: res.userInfo.avatarUrl,
-                    role: role
+                    nickName: userInfo.nickName,
+                    gender: userInfo.gender,
+                    province: userInfo.province,
+                    city: userInfo.city,
+                    avatarUrl: userInfo.avatarUrl,
+                    role: this.data.role,
+                    order_type: orderType
                   },
                   success: res => {
-                    var userInfoId = res._id;
                     wx.setStorage({
                       key: 'role',
                       data: role,
                     })
-                    db.collection('order_type').get({
-                      success: function (res) {
-                        that.setData({
-                          orderTypeList: res.data,
-                          hiddenFlag: true,
-                          userInfoId: userInfoId
-                        })
-                      }
-                    })
+                    
                   }
                 })
-                //获取用户唯一ID
-                wx.login({
-                  success: function (res) {
-                    if (res.code) {
-                      wx.request({
-                        url: 'https://api.weixin.qq.com/sns/jscode2session',
-                        data: {
-                          //填上自己的小程序唯一标识
-                          appid: 'wx73415b963d21e2f4',
-                          //填上自己的小程序的 app secret
-                          secret: 'df90ec682c87d13f532c4479bf95eee8',
-                          grant_type: 'authorization_code',
-                          js_code: res.code
-                        },
-                        method: 'GET',
-                        header: { 'content-type': 'application/json' },
-                        success: function (openIdRes) {
-                          wx.setStorage({
-                            key: 'openid',
-                            data: openIdRes.data.openid,
-                          })
-                          
-                        },
-                        fail: function (error) {
-                          console.error("获取用户openId失败");
-                          console.error(error);
-                        }
-                      })
-                    }
+              } else {
+                db.collection("user_info").doc(res.data[0]._id).update({
+                  data: {
+                    nickName: userInfo.nickName,
+                    gender: userInfo.gender,
+                    province: userInfo.province,
+                    city: userInfo.city,
+                    avatarUrl: userInfo.avatarUrl,
+                    role: that.data.role,
+                    order_type: orderType
+                  }, success: res => {
                   }
                 })
               }
-            })
-          } else {
+              wx.setStorage({
+                key: 'ordertype',
+                data: orderType
+              })
+              that.triggerEvent('callSomeFun')
+              that.setData({
+                authHidden: true
+              })
+            }
+          })
+        }
+      })
+    },
+    userEnter: function (e) {
+      
+      var that = this;
+      var role = e.target.dataset.role;
+      wx.setStorage({
+        key: 'role',
+        data: e.target.dataset.role
+      })
+      // 获取用户信息
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            wx.getUserInfo({
+              success: res => {
+                var userInfo = res.userInfo;
+                if(role==0){
+                  wx.getStorage({
+                    key: 'openid',
+                    success: function (res) {
+                      db.collection("user_info").where({
+                        _openid: res.data
+                      }).get({
+                        success: res => {
+                          if (res.data.length == 0) {
+                            //增加用户信息
+                            db.collection("user_info").add({
+                              data: {
+                                nickName: userInfo.nickName,
+                                gender: userInfo.gender,
+                                province: userInfo.province,
+                                city: userInfo.city,
+                                avatarUrl: userInfo.avatarUrl,
+                                role: role,
+                                order_type: orderType
+                              },
+                              success: res => {}
+                            })
+                          } else {
+                            db.collection("user_info").doc(res.data[0]._id).update({
+                              data: {
+                                nickName: userInfo.nickName,
+                                gender: userInfo.gender,
+                                province: userInfo.province,
+                                city: userInfo.city,
+                                avatarUrl: userInfo.avatarUrl,
+                                role: role
+                              }, success: res => {}
+                            })
+                          }
+                          that.triggerEvent('callSomeFun')
+                          that.setData({
+                            authHidden: true
+                          })
+                        }
+                      })
+                    }
+                  })
+                }else{
+                  db.collection('order_type').get({
+                    success: function (res) {
+                      that.setData({
+                        orderTypeList: res.data,
+                        role: role,
+                        userInfo: userInfo,
+                        hiddenFlag: true
+                      })
+                    }
+                  })
+                }
+              }
+            })  
+          }else{
             wx.showModal({
               title: '警告',
               content: '您拒绝授权，无法进入小程序',
@@ -150,10 +201,9 @@ Component({
                 }
               }
             })
-          }
+          } 
         }
       })
-
     }
   }
 })

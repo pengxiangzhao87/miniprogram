@@ -54,7 +54,7 @@ Component({
           })
           if (res.tempFiles.length > maxLength) {
             wx.showModal({
-              content: '最多能上传' + maxLength + '张图片',
+              content: '最多能上传3张图片',
               showCancel: false,
               success: function (res) { }
             })
@@ -116,8 +116,6 @@ Component({
           var timestamp = Date.parse(new Date());
           var flag = 0;
           for (var index in imagesList) {
-            console.info(index);
-            console.info(imagesList.length);
             wx.cloud.uploadFile({
               cloudPath: openid + "/" + timestamp+'_'+index,
               filePath: imagesList[index],
@@ -127,12 +125,13 @@ Component({
               fail: e => {
                 wx.showToast({
                   icon: 'none',
-                  title: '上传失败'
+                  title: '上传失败',
+                  duration: 1000
                 })
               },
               complete: () => {
                 //都上传完以后，新增订单
-                if (flag == imagesList.length-1){
+                if (flag == imagesList.length-1){ 
                   db.collection('merchant_order').add({
                     data: {
                       create_date: util.formatTime(new Date()),
@@ -141,9 +140,19 @@ Component({
                       fileID: fileID.substring(0,fileID.length-1)
                     },
                     success: res => {
-                      //跳转到广场
-                      wx.redirectTo({
-                        url: '/pages/tabbar/tabbar?currentTab=2'
+                      wx.showToast({
+                        title: '发布成功',
+                        icon: 'success',
+                        duration: 1000,
+                        success: res => {
+                          setTimeout(function () {
+                            //要延时执行的代码
+                            //跳转到广场
+                            wx.redirectTo({
+                              url: '/pages/tabbar/tabbar?currentTab=2'
+                            })
+                          }, 1000) //延迟时间 
+                        }
                       })
                     }
                   })

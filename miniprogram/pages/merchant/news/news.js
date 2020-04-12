@@ -15,9 +15,9 @@ Component({
     newsList:[],
     contactList:[],
     pageNum1:1,
-    pageSize1:2,
+    pageSize1:10,
     pageNum2:1,
-    pageSize2:2
+    pageSize2:10
   },
   pageLifetimes: {
     show() {
@@ -38,14 +38,12 @@ Component({
           var result = res.result.list;
           for(var index in result){
             var fileID = result[index].fileID;
-            if(fileID!=undefined){
-              var images = [];
-              var split = fileID.split(',');
-              for (var dex in split) {
-                images[dex] = split[dex]
-              }
-              result[index].images = images;
+            var images = [];
+            var split = fileID.split(',');
+            for (var dex in split) {
+              images[dex] = split[dex]
             }
+            result[index].images = images;
           }
           that.setData({
             newsList: result
@@ -61,9 +59,10 @@ Component({
    */
   methods: {
     //上拉获取数据，在父节点tabbar触发
-    reachBottom:function(e){
+    reachBottom:function(){
+      console.info("rech")
       var that = this;
-      if(this.data.page==1){
+      if (that.data.page==1){
         var num = that.data.pageNum1 + 1;
         that.setData({
           pageNum1: num
@@ -77,17 +76,14 @@ Component({
             var result = res.result.list;
             for (var index in result) {
               var fileID = result[index].fileID;
-              if (fileID != undefined) {
-                var images = [];
-                var split = fileID.split(',');
-                for (var dex in split) {
-                  images[dex] = split[dex]
-                }
-                result[index].images = images;
+              var images = [];
+              var split = fileID.split(',');
+              for (var dex in split) {
+                images[dex] = split[dex]
               }
+              result[index].images = images;
             }
             var resultList = that.data.newsList.concat(result);
-            console.info(resultList)
             that.setData({
               newsList: resultList
             })
@@ -95,7 +91,41 @@ Component({
           fail: err => { }
         })
       }else{
-
+        var num = that.data.pageNum2 + 1;
+        that.setData({
+          pageNum2: num
+        })
+        var pageSize = that.data.pageSize2;
+        //用户订单、用户信息连表查询
+        wx.getStorage({
+          key: 'openid',
+          complete: res => {
+            var openid = res.data;
+            wx.cloud.callFunction({
+              name: 'merchantContact',
+              data: { openid: openid, pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
+              success: res => {
+                var result = res.result.list;
+                for (var index in result) {
+                  var custOrder = result[index].custOrder[0];
+                  var fileID = custOrder.fileID;
+                  var images = [];
+                  var split = fileID.split(',');
+                  for (var dex in split) {
+                    images[dex] = split[dex]
+                  }
+                  result[index].images = images;
+                  
+                }
+                var orderList = that.data.newsList.concat(result);
+                that.setData({
+                  contactList: orderList
+                })
+              },
+              fail: err => { }
+            })
+          }
+        })
       }
       
     },
@@ -111,9 +141,15 @@ Component({
     },
     //跳转详情
     toOrderDetail:function(e){
-      var id = e.currentTarget.dataset.id
+      var index = e.currentTarget.dataset.index
+      var detail = {};
+      if (this.data.page == 1) {
+        detail = this.data.newsList[index];
+      } else {
+        detail = this.data.contactList[index];
+      }
       wx.navigateTo({
-        url: '/pages/merchant/orderDetail/orderDetail?id='+id,
+        url: '/pages/merchant/orderDetail/orderDetail?detail=' + JSON.stringify(detail),
       })
     },
     
@@ -160,22 +196,18 @@ Component({
               data: { openid: openid, pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
               success: res => {
                 var result = res.result.list;
-                var orderList = [];
                 for(var index in result){
                   var custOrder = result[index].custOrder[0];
                   var fileID = custOrder.fileID;
-                  if (fileID != undefined) {
-                    var images = [];
-                    var split = fileID.split(',');
-                    for (var dex in split) {
-                      images[dex] = split[dex]
-                    }
-                    custOrder.images = images;
+                  var images = [];
+                  var split = fileID.split(',');
+                  for (var dex in split) {
+                    images[dex] = split[dex]
                   }
-                  orderList[index]=custOrder;
+                  result[index].images = images;
                 }
                 that.setData({
-                  contactList: orderList
+                  contactList: result
                 })
               },
               fail: err => { }

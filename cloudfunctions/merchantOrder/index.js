@@ -11,13 +11,13 @@ exports.main = async (event, context) => {
   const openid = event.openid;
   const pageNum = event.pageNum;
   const pageSize = event.pageSize;
-  //商家联系过的用户订单，_openid商户ID，orderid用户订单ID
-  return await db.collection("merchant_cust_contact").aggregate()
+
+  return await db.collection("merchant_order").aggregate()
     .lookup({
-      from: 'cust_order',
-      localField: 'orderid',
-      foreignField: '_id',
-      as: 'custOrder'
+      from: 'user_info',
+      localField: '_openid',
+      foreignField: '_openid',
+      as: 'userInfo'
     }).match({
       _openid: openid
     }).sort({

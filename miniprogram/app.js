@@ -18,8 +18,38 @@ App({
         env: 'ourcity-develop-f6gqc',
         traceUser: true,
       })
-    }
-    
+    }   
+    //获取用户唯一ID
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          wx.request({
+            url: 'https://api.weixin.qq.com/sns/jscode2session',
+            data: {
+              //填上自己的小程序唯一标识
+              appid: 'wx73415b963d21e2f4',
+              //填上自己的小程序的 app secret
+              secret: 'df90ec682c87d13f532c4479bf95eee8',
+              grant_type: 'authorization_code',
+              js_code: res.code
+            },
+            method: 'GET',
+            header: { 'content-type': 'application/json' },
+            success: function (openIdRes) {
+              wx.setStorage({
+                key: 'openid',
+                data: openIdRes.data.openid,
+              })
+
+            },
+            fail: function (error) {
+              console.error("获取用户openId失败");
+              console.error(error);
+            }
+          })
+        }
+      }
+    })
   }
    
 })

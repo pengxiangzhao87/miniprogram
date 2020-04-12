@@ -23,7 +23,6 @@ Component({
       role: '1'
     }).get({
       success: function(res) {
-        console.log("res = " + res.data[0].address)
         _this.setData({
           merchantInfo: res.data
         })

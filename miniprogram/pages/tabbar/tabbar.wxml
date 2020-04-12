@@ -1,6 +1,6 @@
 <!-- 组件显示 -->
 <view hidden="{{dialogHidden}}">
-  <popup/>
+  <popup bind:callSomeFun="onLoad"/>
 </view>
 
 <view class="page" hidden="{{role==0?false:true}}">

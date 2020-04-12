@@ -24,26 +24,6 @@ Page({
     this.setData({
       chatRoomGroupId: e.groupid
     })
-    //更新商家端，消息-联系，最后聊天时间
-    db.collection('merchant_cust_contact').where({
-      _openid: e.groupid.split('__')[1],
-      orderid: e.groupid.split('__')[2]
-    }).update({
-      data:{
-        createDate: util.formatTime(new Date())
-      },
-      success:res=>{
-        if(res.stats.updated==0){
-          db.collection('merchant_cust_contact').add({
-            data: {
-              orderid: e.groupid.split('__')[2],
-              createDate: util.formatTime(new Date())
-            }
-          })
-        }
-      }
-    })
-
     // 获取用户信息
     wx.getSetting({
       success: res => {
