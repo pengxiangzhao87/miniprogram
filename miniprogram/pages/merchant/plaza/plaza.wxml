@@ -2,49 +2,52 @@
 
 <view class="title">
   <text  class="big {{page==1?'':'small'}}" space="nbsp">我的  </text >
-  <text  class="big {{page==2?'':'small'}}" >最新</text >
+  <text  class="big {{page==2?'':'small'}}" >附近</text >
 </view>
 
-<!-- 我的 -->
-<view class="my" wx:if="{{page == 1}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani1}}">
-  <view wx:for="{{myList}}" wx:key="index"  wx:for-item="item">
-    <view data-index="{{index}}" bindtap="toOrderDetail">
-      <view class="userone">
-        <image class="user_avatar" src="{{item.userInfo[0].avatarUrl}}"></image>
-        <view>
-          <view style="font-size:35rpx;padding-left:20rpx;">{{item.userInfo[0].nickName}}</view>
-          <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{item.create_date}}</view>
-        </view>  
+<view class="contain">
+  <!-- 我的 -->
+  <view class="my" wx:if="{{page == 1}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani1}}">
+    <view wx:for="{{myList}}" wx:key="index"  wx:for-item="item">
+      <view data-id="{{item._id}}" bindtap="toCustContact">
+        <view class="userone">
+          <image class="user_avatar" src="{{item.userInfo[0].avatarUrl}}"></image>
+          <view>
+            <view style="font-size:35rpx;padding-left:20rpx;">{{item.userInfo[0].nickName}}</view>
+            <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{item.create_date}}</view>
+          </view>  
+        </view>
+        <view class="textflow">{{item.orderContent}}</view>
       </view>
-      <view class="textflow">{{item.orderContent}}</view>
+      <view class="global_img" >
+        <image data-index="{{index}}" data-dex="0" src="{{item.images[0]}}" bindtap="enlargeImg"></image>
+        <image data-index="{{index}}" data-dex="1" src="{{item.images[1]}}" bindtap="enlargeImg"></image>
+        <image data-index="{{index}}" data-dex="2" src="{{item.images[2]}}" bindtap="enlargeImg"></image>
+      </view>
+      <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
     </view>
-    <view class="global_img" >
-      <image data-index="{{index}}" data-dex="0" src="{{item.images[0]}}" bindtap="enlargeImg"></image>
-      <image data-index="{{index}}" data-dex="1" src="{{item.images[1]}}" bindtap="enlargeImg"></image>
-      <image data-index="{{index}}" data-dex="2" src="{{item.images[2]}}" bindtap="enlargeImg"></image>
+  </view>
+
+  <!-- 最新 -->
+  <view class="news" wx:if="{{page == 2}}"  bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani2}}">
+    <view wx:for="{{newsList}}" wx:key="index"  wx:for-item="item">
+      <view data-index="{{index}}" bindtap="toMerchantOrderDetail">
+        <view class="userone">
+          <image class="user_avatar" src="{{item.userInfo[0].avatarUrl}}"></image>
+          <view>
+            <view style="font-size:35rpx;padding-left:20rpx;">{{item.userInfo[0].nickName}}</view>
+            <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{item.create_date}}</view>
+          </view>  
+        </view>
+        <view class="textflow">{{item.orderContent}}</view>
+      </view>
+      <view class="global_img" >
+        <image data-index="{{index}}" data-dex="0" src="{{item.images[0]}}" bindtap="enlargeImg"></image>
+        <image data-index="{{index}}" data-dex="1" src="{{item.images[1]}}" bindtap="enlargeImg"></image>
+        <image data-index="{{index}}" data-dex="2" src="{{item.images[2]}}" bindtap="enlargeImg"></image>
+      </view>
+      <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
     </view>
-    <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;" src="/images/line.png"></image>
   </view>
 </view>
 
-<!-- 最新 -->
-<view class="news" wx:if="{{page == 2}}"  bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" animation="{{ani2}}">
-  <view wx:for="{{newsList}}" wx:key="index"  wx:for-item="item">
-    <view data-index="{{index}}" bindtap="toOrderDetail">
-      <view class="userone">
-        <image class="user_avatar" src="{{item.userInfo[0].avatarUrl}}"></image>
-        <view>
-          <view style="font-size:35rpx;padding-left:20rpx;">{{item.userInfo[0].nickName}}</view>
-          <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{item.create_date}}</view>
-        </view>  
-      </view>
-      <view class="textflow">{{item.orderContent}}</view>
-    </view>
-    <view class="global_img" >
-      <image data-index="{{index}}" data-dex="0" src="{{item.images[0]}}" bindtap="enlargeImg"></image>
-      <image data-index="{{index}}" data-dex="1" src="{{item.images[1]}}" bindtap="enlargeImg"></image>
-      <image data-index="{{index}}" data-dex="2" src="{{item.images[2]}}" bindtap="enlargeImg"></image>
-    </view>
-    <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;" src="/images/line.png"></image>
-  </view>
-</view>

@@ -1,9 +1,15 @@
 <!--pages/merchant/merchantOrderDetail/merchantOrderDetail.wxml-->
-<view>
-  <view>{{merchantOrder.orderContent}}</view>
-  <view>{{merchantInfo.name}}</view>
-  <navigator url="/pages/common/room/room?groupid={{custOrder._openid}}__{{merchantInfo._openid}}__{{merchantOrder._id}}" open-type="navigate" class="uploader-text">
-      <text>消息</text>
-  </navigator>
-</view>
+<view class="contain">
+  <view class="userone">
+    <image class="user_avatar" src="{{detail.userInfo[0].avatarUrl}}"></image>
+    <view>
+      <view style="font-size:35rpx;padding-left:20rpx;">{{detail.userInfo[0].nickName}}</view>
+      <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{detail.create_date}}</view>
+    </view>  
+  </view>
+  <view>{{detail.orderContent}}</view>
 
+  <view wx:for="{{detail.images}}" wx:key="index"  wx:for-item="item">
+    <image data-index="{{index}}" data-dex="0" src="{{item}}" bindtap="enlargeImg"></image>
+  </view>  
+</view>

@@ -20,9 +20,3 @@
 }
 
  
-
-button::after{
-  background-color: white;
-}
-
- 

@@ -40,13 +40,7 @@ Component({
             success: res => {
               var result = res.result.list;
               for (var index in result) {
-                var fileID = result[index].fileID;
-                var images = [];
-                var split = fileID.split(',');
-                for (var dex in split) {
-                  images[dex] = split[dex]
-                }
-                result[index].images = images;
+                result[index].images = result[index].fileID.split(',');
                 
               }
               that.setData({
@@ -64,10 +58,18 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    toMerchantOrderDetail:function(e){
+    toCustContact:function(e){
       var id = e.currentTarget.dataset.id
       wx.navigateTo({
-        url: '/pages/merchant/merchantOrderDetail/merchantOrderDetail?id=' + id,
+        url: '/pages/merchant/custContact/custContact?id=' + id
+      })
+
+    },
+    toMerchantOrderDetail:function(e){
+      var index = e.currentTarget.dataset.index
+      var detail = this.data.newsList[index];
+      wx.navigateTo({
+        url: '/pages/merchant/merchantOrderDetail/merchantOrderDetail?detail=' + JSON.stringify(detail)
       })
     },
     reachBottom: function (e) {
@@ -90,13 +92,7 @@ Component({
               success: res => {
                 var result = res.result.list;
                 for (var index in result) {
-                  var fileID = result[index].fileID;
-                  var images = [];
-                  var split = fileID.split(',');
-                  for (var dex in split) {
-                    images[dex] = split[dex]
-                  }
-                  result[index].images = images;
+                  result[index].images = result[index].fileID.split(',');
                 }
                 var resultList = that.data.myList.concat(result);
                 that.setData({
@@ -122,13 +118,7 @@ Component({
         success: res => {
           var result = res.result.list;
           for (var index in result) {
-            var fileID = result[index].fileID;
-            var images = [];
-            var split = fileID.split(',');
-            for (var dex in split) {
-              images[dex] = split[dex]
-            }
-            result[index].images = images;
+            result[index].images = result[index].fileID.split(',');
 
           }
           that.setData({
@@ -152,13 +142,7 @@ Component({
             success: res => {
               var result = res.result.list;
               for (var index in result) {
-                var fileID = result[index].fileID;
-                var images = [];
-                var split = fileID.split(',');
-                for (var dex in split) {
-                  images[dex] = split[dex]
-                }
-                result[index].images = images;
+                result[index].images = result[index].fileID.split(',');
 
               }
               that.setData({

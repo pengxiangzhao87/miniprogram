@@ -1,0 +1,50 @@
+/* pages/merchant/custContact/custContact.wxss */
+
+.contain{
+  margin-top:30rpx;
+  padding-left: 30rpx;
+  padding-right:30rpx;
+}
+
+.user_row{
+  position: relative;
+  align-items:center;
+}
+
+.left{
+  font-size:30rpx;
+  flex: 1;
+   align-items:center;
+}
+
+.right {
+  font-size:25rpx;
+  position: relative;
+  align-items:center;
+  color:#bfbfbf;
+}
+
+
+.userone,.user_row{
+  display: flex;
+  flex-direction: row;
+
+
+}
+.user_avatar{
+  border-radius: 25px;
+  width:100rpx;
+  height: 100rpx;
+  
+}
+
+.content{
+  font-size:25rpx;
+  color:#bfbfbf;
+  display: -webkit-box;
+ word-break: break-all;
+ text-overflow: ellipsis;
+ overflow: hidden;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp:1;
+}

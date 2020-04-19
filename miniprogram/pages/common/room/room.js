@@ -13,17 +13,13 @@ Page({
     chatRoomCollection: 'chatroom',
     chatRoomGroupId: '',
     chatRoomGroupName: '聊天室',
-
     // functions for used in chatroom components
     onGetUserInfo: null,
     getOpenID: null,
   },
 
   onLoad: function(e) {
-    //用户openid,加两个下划线，加商家openid,加两个下划线,加订单ID，作为聊天室唯一groupid
-    this.setData({
-      chatRoomGroupId: e.groupid
-    })
+    
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -40,10 +36,11 @@ Page({
         }
       }
     })
-
+    //用户openid,加两个下划线，加商家openid,加两个下划线,加订单ID，作为聊天室唯一chatRoomGroupId
     this.setData({
       onGetUserInfo: this.onGetUserInfo,
       getOpenID: this.getOpenID,
+      chatRoomGroupId: e.groupid
     })
 
     wx.getSystemInfo({

@@ -15,7 +15,4 @@
   <view wx:for="{{detail.images}}" wx:key="index"  wx:for-item="item">
     <image data-index="{{index}}" data-dex="0" src="{{item}}" bindtap="enlargeImg"></image>
   </view>  
-
-
-
 </view>

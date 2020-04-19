@@ -58,6 +58,7 @@ Component({
               showCancel: false,
               success: function (res) { }
             })
+            return;
           }
 
           for (var i = 0; i < res.tempFilePaths.length; i++) {

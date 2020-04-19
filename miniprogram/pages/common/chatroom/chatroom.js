@@ -1,3 +1,4 @@
+var util = require('../../../utils/util.js')
 const FATAL_REBUILD_TOLERANCE = 10
 const SETDATA_SCROLL_TO_BOTTOM = {
   scrollTop: 100000,
@@ -173,7 +174,7 @@ Component({
           nickName: this.data.userInfo.nickName,
           msgType: 'text',
           textContent: e.detail.value,
-          sendTime: new Date(),
+          sendTime: util.formatTime(new Date()),
           sendTimeTS: Date.now(), // fallback
         }
 
@@ -219,7 +220,7 @@ Component({
             avatar: this.data.userInfo.avatarUrl,
             nickName: this.data.userInfo.nickName,
             msgType: 'image',
-            sendTime: new Date(),
+            sendTime: util.formatTime(new Date()),
             sendTimeTS: Date.now(), // fallback
           }
 

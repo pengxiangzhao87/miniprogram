@@ -1,3 +1,4 @@
+var util = require('../../../utils/util.js')
 var db = wx.cloud.database();
 Component({
   options: {
@@ -30,18 +31,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    // userEnter:function(e){
-    //   var that = this;
-    //   db.collection('order_type').get({
-    //     success: function (res) {
-    //       console.info(res)
-    //       that.setData({
-    //         orderTypeList: res.data,
-    //         hiddenFlag: true
-    //       })
-    //     }
-    //   })
-    // },
     checkboxChange:function(e){
       this.setData({
         checkBox:e.detail.value
@@ -158,11 +147,9 @@ Component({
                           } else {
                             db.collection("user_info").doc(res.data[0]._id).update({
                               data: {
-                                nickName: userInfo.nickName,
                                 gender: userInfo.gender,
                                 province: userInfo.province,
                                 city: userInfo.city,
-                                avatarUrl: userInfo.avatarUrl,
                                 role: role
                               }, success: res => {}
                             })

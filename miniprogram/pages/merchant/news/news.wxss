@@ -1,4 +1,8 @@
 /*pages/merchant/news/news.wxss*/
+
+.contain{
+  padding-bottom: 150rpx;
+}
 .title{
   align-items: center;
   display: flex;

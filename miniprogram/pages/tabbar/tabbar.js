@@ -160,10 +160,10 @@ Page({
     if(this.data.role==0){
       selectComponent = this.data.currentTab == 0 ? '.component_index' : (this.data.currentTab == 1 ? '.component_discover' : (this.data.currentTab == 2 ? '.component_social' : (this.data.currentTab == 3 ? '.component_orders' :'.component_my')));
     }else{
-      selectComponent = this.data.currentTab == 0 ? '.component_news' : (this.data.currentTab == 1 ? '.component_active' : (this.data.currentTab == 2 ? '.component_plaza' :'.component_store'));
+      selectComponent = this.data.currentTab == 0 ? '.component_news' : (this.data.currentTab == 1 ? '.component_active' : (this.data.currentTab == 2 ? '.component_plaza' :''));
     }
-    console.info("aa",selectComponent)
-    this.selectComponent(selectComponent).reachBottom();
-
+    if (selectComponent!=''){
+      this.selectComponent(selectComponent).reachBottom();
+    }
   }
 })

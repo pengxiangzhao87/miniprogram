@@ -37,13 +37,7 @@ Component({
         success: res => {
           var result = res.result.list;
           for(var index in result){
-            var fileID = result[index].fileID;
-            var images = [];
-            var split = fileID.split(',');
-            for (var dex in split) {
-              images[dex] = split[dex]
-            }
-            result[index].images = images;
+            result[index].images = result[index].fileID.split(',');
           }
           that.setData({
             newsList: result
@@ -60,7 +54,6 @@ Component({
   methods: {
     //上拉获取数据，在父节点tabbar触发
     reachBottom:function(){
-      console.info("rech")
       var that = this;
       if (that.data.page==1){
         var num = that.data.pageNum1 + 1;
@@ -75,13 +68,7 @@ Component({
           success: res => {
             var result = res.result.list;
             for (var index in result) {
-              var fileID = result[index].fileID;
-              var images = [];
-              var split = fileID.split(',');
-              for (var dex in split) {
-                images[dex] = split[dex]
-              }
-              result[index].images = images;
+              result[index].images = result[index].fileID.split(',');
             }
             var resultList = that.data.newsList.concat(result);
             that.setData({
@@ -103,18 +90,12 @@ Component({
             var openid = res.data;
             wx.cloud.callFunction({
               name: 'merchantContact',
-              data: { openid: openid, pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
+              data: { openid: openid, pageNum: (num - 1) * pageSize, pageSize: pageSize },
               success: res => {
                 var result = res.result.list;
                 for (var index in result) {
                   var custOrder = result[index].custOrder[0];
-                  var fileID = custOrder.fileID;
-                  var images = [];
-                  var split = fileID.split(',');
-                  for (var dex in split) {
-                    images[dex] = split[dex]
-                  }
-                  result[index].images = images;
+                  result[index].images = custOrder.fileID.split(',');
                   
                 }
                 var orderList = that.data.newsList.concat(result);
@@ -149,7 +130,7 @@ Component({
         detail = this.data.contactList[index];
       }
       wx.navigateTo({
-        url: '/pages/merchant/orderDetail/orderDetail?detail=' + JSON.stringify(detail),
+        url: '/pages/merchant/orderDetail/orderDetail?detail=' + JSON.stringify(detail)
       })
     },
     
@@ -198,13 +179,7 @@ Component({
                 var result = res.result.list;
                 for(var index in result){
                   var custOrder = result[index].custOrder[0];
-                  var fileID = custOrder.fileID;
-                  var images = [];
-                  var split = fileID.split(',');
-                  for (var dex in split) {
-                    images[dex] = split[dex]
-                  }
-                  result[index].images = images;
+                  result[index].images = custOrder.fileID.split(',');
                 }
                 that.setData({
                   contactList: result

@@ -1,3 +1,4 @@
+var util = require('../../../utils/util.js')
 var db = wx.cloud.database();
 
 Page({
@@ -32,7 +33,7 @@ Page({
       }
     })
     wx.navigateTo({
-      url: '/pages/common/room/room?groupid='+detail._openid+'__'+detail.userInfo[0]._openid+'__'+detail._id,
+      url: '/pages/common/room/room?groupid='+detail._openid+'__'+detail.userInfo[0]._openid+'__'+detail._id
     })
     
   },

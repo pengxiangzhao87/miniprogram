@@ -1,7 +1,7 @@
 <!--pages/common/popup/popup.wxml-->
 <scroll-view scroll-y="false" hidden="{{authHidden}}"> 
   <!--测试弹窗-->  
-  <view class="dialogMarsk" bindtap="showDialog" data-statu="close" wx:if="true"></view>  
+  <view class="dialogMarsk" data-statu="close" wx:if="true"></view>  
 
     <!--dialog-->
   <view class="dialog {{!hiddenFlag?'':'range'}}" wx:if="true"> 

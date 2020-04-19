@@ -1,4 +1,7 @@
 /* pages/merchant/plaza/plaza.wxss */
+.contain{
+  padding-bottom: 150rpx;
+}
 .title{
   align-items: center;
   display: flex;
