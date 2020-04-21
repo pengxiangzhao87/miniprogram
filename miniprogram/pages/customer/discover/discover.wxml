@@ -1,11 +1,61 @@
 <!--pages/costomer/discover.wxml-->
 <view class="discover-page">
-  <view class="discover-head">
-    <button class="discover-btn" type="primary" size="mini">最近</button>
-    <view class="discover-text">最新</view>
-    <view class="discover-text">发布</view>
-    <button class="discover-btn" type="primary" size="mini">发布</button>
+  <view class="title">
+    <text class="big {{page==0?'':'small'}}" space="nbsp">关注   </text>
+    <text class="big {{page==1?'':'small'}}">最新</text>
   </view>
   <view class="line"></view>
+  <swiper class="discover-swiper" duration="800" bindchange="scrollPage">
+    <swiper-item>
+      <scroll-view class="news" scroll-y="true">
+        <block wx:for="{{newsList}}" wx:key="index" wx:for-item="item">
+          <view data-index="{{index}}" bindtap="toOrderDetail">
+            <view class="userone">
+              <image class="user_avatar" src="{{item.userInfo[0].avatarUrl}}"></image>
+              <view>
+                <view style="font-size:35rpx;padding-left:20rpx;">{{item.userInfo[0].nickName}}</view>
+                <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{item.create_date}}</view>
+              </view>
+            </view>
+            <view class="textflow">{{item.order_content}}</view>
+          </view>
+          <view class="global_img">
+            <image data-index="{{index}}" data-dex="0" src="{{item.images[0]}}" bindtap="enlargeImg"></image>
+            <image data-index="{{index}}" data-dex="1" src="{{item.images[1]}}" bindtap="enlargeImg"></image>
+            <image data-index="{{index}}" data-dex="2" src="{{item.images[2]}}" bindtap="enlargeImg"></image>
+          </view>
 
+          <view class="discover-heard">
+            <text class="discover-text">距离：14km</text>
+            <icon class="icon-box-img " type="info" size="23"></icon>
+            <icon class="icon-small discover-images" type="info_circle" size="23"></icon>
+          </view>
+
+          <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
+        </block>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="news" scroll-y="true">
+        <block wx:for="{{newsList}}" wx:key="index" wx:for-item="item">
+          <view data-index="{{index}}" bindtap="toOrderDetail">
+            <view class="userone">
+              <image class="user_avatar" src="{{item.userInfo[0].avatarUrl}}"></image>
+              <view>
+                <view style="font-size:35rpx;padding-left:20rpx;">{{item.userInfo[0].nickName}}</view>
+                <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{item.create_date}}</view>
+              </view>
+            </view>
+            <view class="textflow">{{item.order_content}}</view>
+          </view>
+          <view class="global_img">
+            <image data-index="{{index}}" data-dex="0" src="{{item.images[0]}}" bindtap="enlargeImg"></image>
+            <image data-index="{{index}}" data-dex="1" src="{{item.images[1]}}" bindtap="enlargeImg"></image>
+            <image data-index="{{index}}" data-dex="2" src="{{item.images[2]}}" bindtap="enlargeImg"></image>
+          </view>
+          <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
+        </block>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
 </view>

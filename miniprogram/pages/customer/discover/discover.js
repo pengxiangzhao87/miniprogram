@@ -8,8 +8,11 @@ Component({
           selected: 0
         })
       }
-    }
+      this.initData()
+    },
+
   },
+  
   /**
    * 组件的属性列表
    */
@@ -21,7 +24,11 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    page: 0,
+    pageNum1: 1,
+    pageSize1: 10,
+    newsList: [],
+    contactList: []
   },
 
   /**
@@ -29,5 +36,44 @@ Component({
    */
   methods: {
 
+    /**
+     * 页面滑动处理
+     */
+    scrollPage: function(event) {
+      if (event.detail.source == "touch") {
+        this.setData({
+          page: event.detail.current
+        })
+      }
+    },
+    /**
+     * 获取数据
+     */
+    initData: function() {
+      var pageNum = this.data.pageNum1;
+      var pageSize = this.data.pageSize1;
+      console.log("ready = " + pageNum + "pageSize = " + pageSize)
+      //用户订单、用户信息连表查询
+      wx.cloud.callFunction({
+        name: 'cusOrder',
+        data: {
+          pageNum: 1,
+          pageSize: 10
+        },
+        success: res => {
+          console.log("res = " + JSON.stringify(res))
+          var result = res.result.list;
+          for (var index in result) {
+            result[index].images = result[index].fileID.split(',');
+          }
+          this.setData({
+            newsList: result
+          })
+        },
+        fail: err => {
+          console.log("err = " + JSON.stringify(err))
+        }
+      })
+    },
   }
 })
