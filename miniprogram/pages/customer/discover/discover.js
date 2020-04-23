@@ -74,5 +74,19 @@ Component({
         }
       })
     },
+      //跳转详情
+      toOrderDetail:function(e){
+        var index = e.currentTarget.dataset.index
+        var detail = {};
+        if (this.data.page == 0) {
+          detail = this.data.newsList[index];
+        } else {
+          detail = this.data.contactList[index];
+        }
+        wx.navigateTo({
+          url: '/pages/merchant/orderDetail/orderDetail?detail=' + JSON.stringify(detail)
+        })
+      },
+      
   }
 })
