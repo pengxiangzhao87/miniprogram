@@ -1,2 +1,14 @@
 <!--pages/customer/orders/orders.wxml-->
-<text>pages/customer/orders/orders.wxml</text>
+
+<view class="contain">
+  <view wx:for="{{order}}" wx:key="index"  wx:for-item="item">
+    <view data-index="{{index}}" bindtap="toOrderDetail">
+      <view class="userone">
+        <view style="font-size:35rpx;">{{item.name}}</view>
+        <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{item.create_date}}</view>
+      </view>
+      <view class="textflow">{{item.order_content}}</view>
+      <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
+    </view>
+  </view>
+</view>

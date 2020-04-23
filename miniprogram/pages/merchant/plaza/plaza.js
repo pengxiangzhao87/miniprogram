@@ -14,7 +14,7 @@ Component({
     myList: [],
     newsList: [],
     pageNum1: 1,
-    pageSize1: 2,
+    pageSize1: 10,
     pageNum2: 1,
     pageSize2: 10
   },
@@ -73,7 +73,6 @@ Component({
       })
     },
     reachBottom: function (e) {
-      console.info("rech")
       var that = this;
       if (that.data.page == 1) {
         var num = that.data.pageNum1 + 1;

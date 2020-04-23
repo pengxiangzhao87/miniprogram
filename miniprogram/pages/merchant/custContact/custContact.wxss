@@ -28,9 +28,8 @@
 .userone,.user_row{
   display: flex;
   flex-direction: row;
-
-
 }
+
 .user_avatar{
   border-radius: 25px;
   width:100rpx;

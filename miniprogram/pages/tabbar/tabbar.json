@@ -2,7 +2,6 @@
   "usingComponents": {
     "component_index": "/pages/customer/home/home",
     "component_discover": "/pages/customer/discover/discover",
-    "component_social": "/pages/customer/social/social",
     "component_orders": "/pages/customer/orders/orders",
     "component_my": "/pages/customer/my/my",
     "component_news": "/pages/merchant/news/news",

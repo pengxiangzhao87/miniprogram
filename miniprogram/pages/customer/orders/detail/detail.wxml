@@ -1,0 +1,19 @@
+<!--pages/customer/orders/detail/detail.wxml-->
+<view class="contain">
+  <view style="padding-bottom:30rpx;align-items: center;display: flex;justify-content: center;  ">{{name}}</view>
+  <view wx:for="{{detail}}" wx:key="index"  wx:for-item="item">
+    <view wx:if="{{item.chatRoom.length!=0}}">
+      <view class="userone" bindtap="toRoom" data-index="{{index}}">
+        <view>
+          <image class="user_avatar" src="{{item.avatarUrl}}"></image>
+        </view>
+        <view style="padding-left:20rpx;">
+          <view>{{item.name}}</view>
+          <view style="color:#bfbfbf;font-size:25rpx;">{{item.chatRoom[item.chatRoom.length-1].sendTime}}</view>
+          <view class="content">{{item.chatRoom[item.chatRoom.length-1].msgType=='text'?item.chatRoom[item.chatRoom.length-1].textContent:pic}}</view>
+        </view>
+      </view>
+      <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
+    </view> 
+  </view>
+</view>

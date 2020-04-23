@@ -1,24 +1,28 @@
-/* pages/customer/orders/orders.wxss */
+/* pages/customer/orders/detail/detail.wxss */
 .contain{
   padding-left:30rpx;
   padding-right:30rpx;
   padding-bottom: 150rpx;
 }
 
+.user_avatar{
+  border-radius: 25px;
+  width:100rpx;
+  height: 100rpx;
+  
+}
+
 .userone{
   display: flex;
   flex-direction: row;
-  align-content: center;
-  align-items: center;
 }
 
-.textflow{
+
+.content{
   display: -webkit-box;
  word-break: break-all;
  text-overflow: ellipsis;
- font-size: 30rpx;
  overflow: hidden;
  -webkit-box-orient: vertical;
- -webkit-line-clamp:3;
-
-}
+ -webkit-line-clamp:1;
+} 

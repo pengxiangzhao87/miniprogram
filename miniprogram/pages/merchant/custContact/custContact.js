@@ -4,6 +4,7 @@ var db = wx.cloud.database();
 Page({
   data: {
     contactList: {},
+    pic:'[图片]',
     pageNum:1,
     pageSize:10
   },
@@ -15,12 +16,14 @@ Page({
       key: 'openid',
       success: function(res) {
         var openid = res.data;
+        console.info(e.id)
         //用户订单、用户信息连表查询
         wx.cloud.callFunction({
           name: 'custContact',
           data: { orderid: e.id, pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
           success: res => {
             var result = res.result.list;
+            console.info('aa',result)
             that.setData({
               contactList: result
             }) 

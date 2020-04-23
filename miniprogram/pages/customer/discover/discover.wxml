@@ -25,12 +25,6 @@
             <image data-index="{{index}}" data-dex="2" src="{{item.images[2]}}" bindtap="enlargeImg"></image>
           </view>
 
-          <view class="discover-heard">
-            <text class="discover-text">距离：14km</text>
-            <icon class="icon-box-img " type="info" size="23"></icon>
-            <icon class="icon-small discover-images" type="info_circle" size="23"></icon>
-          </view>
-
           <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
         </block>
       </scroll-view>

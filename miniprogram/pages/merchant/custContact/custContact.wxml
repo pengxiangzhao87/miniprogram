@@ -1,17 +1,19 @@
 <!--pages/merchant/custContact/custContact.wxml-->
 <view class="contain">
   <view wx:for="{{contactList}}" wx:key="index"  wx:for-item="item">
-    <view class="userone" data-groupid="{{item.chatRoom[item.chatRoom.length-1].groupId}}" bindtap="toRoom">
-      <image class="user_avatar" src="{{item.custInfo[0].avatarUrl}}"></image>
-      <view style="width:100%;margin-left:20rpx;">
-        <view class="user_row">
-          <view class="left">{{item.custInfo[0].nickName}}</view>
-          <view class="right">{{item.chatRoom[item.chatRoom.length-1].sendTime}}</view>
-        </view>
-        <view class="content">{{item.chatRoom[item.chatRoom.length-1].textContent}}</view>
-      </view>  
+    <view wx:if="{{item.chatRoom.length!=0}}">
+      <view class="userone" data-groupid="{{item.chatRoom[item.chatRoom.length-1].groupId}}" bindtap="toRoom">
+        <image class="user_avatar" src="{{item.avatarUrl}}"></image>
+        <view style="width:100%;margin-left:20rpx;">
+          <view class="user_row">
+            <view class="left">{{item.name}}</view>
+            <view class="right">{{item.chatRoom[item.chatRoom.length-1].sendTime}}</view>
+          </view>
+          <view class="content">{{item.chatRoom[item.chatRoom.length-1].msgType=='text'?item.chatRoom[item.chatRoom.length-1].textContent:pic}}</view>
+        </view>  
+      </view>
+      <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
     </view>
-    <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
   </view>
 </view>
 

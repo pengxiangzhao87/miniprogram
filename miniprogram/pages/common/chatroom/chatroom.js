@@ -12,6 +12,7 @@ Component({
     groupId: String,
     groupName: String,
     userInfo: Object,
+    orderid:String,
     onGetUserInfo: {
       type: Function,
     },
@@ -176,6 +177,7 @@ Component({
           textContent: e.detail.value,
           sendTime: util.formatTime(new Date()),
           sendTimeTS: Date.now(), // fallback
+          orderid:this.data.orderid
         }
 
         this.setData({
@@ -222,6 +224,7 @@ Component({
             msgType: 'image',
             sendTime: util.formatTime(new Date()),
             sendTimeTS: Date.now(), // fallback
+            orderid:this.data.orderid
           }
 
           this.setData({

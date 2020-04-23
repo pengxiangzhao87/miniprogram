@@ -11,12 +11,9 @@
     <component_discover class="component_discover"/>
   </view>
   <view hidden="{{currentTab == 2? false: true}}">
-    <component_social class="component_social"/>
-  </view>
-  <view hidden="{{currentTab == 3? false: true}}">
     <component_orders class="component_orders"/>
   </view>
-  <view hidden="{{currentTab == 4? false: true}}">
+  <view hidden="{{currentTab == 3? false: true}}">
     <component_my class="component_my"/>
   </view>
 </view>

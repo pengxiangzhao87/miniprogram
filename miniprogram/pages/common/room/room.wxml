@@ -4,6 +4,7 @@
     envId="{{chatRoomEnvId}}"
     collection="{{chatRoomCollection}}"
     groupId="{{chatRoomGroupId}}"
+    orderid="{{orderid}}"
     groupName="{{chatRoomGroupName}}"
     userInfo="{{userInfo}}"
     onGetUserInfo="{{onGetUserInfo}}"

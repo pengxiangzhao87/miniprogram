@@ -1,1 +1,30 @@
 /* pages/customer/my/my.wxss */
+.contain{
+  padding-left: 30rpx;
+  padding-right:30rpx;
+  padding-bottom: 150rpx;
+}
+
+.userone{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+
+}
+
+.user_avatar{
+  border-radius: 999px;
+  width:150rpx;
+  height:150rpx;
+
+}
+
+.delete{
+  width: 40rpx;
+  height: 40rpx;
+  position:absolute;
+  top:5px;
+  right:5px;
+
+}

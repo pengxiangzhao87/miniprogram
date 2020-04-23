@@ -52,10 +52,9 @@ Component({
     initData: function() {
       var pageNum = this.data.pageNum1;
       var pageSize = this.data.pageSize1;
-      console.log("ready = " + pageNum + "pageSize = " + pageSize)
       //用户订单、用户信息连表查询
       wx.cloud.callFunction({
-        name: 'cusOrder',
+        name: 'merchantOrder',
         data: {
           pageNum: 1,
           pageSize: 10

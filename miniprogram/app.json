@@ -3,7 +3,6 @@
     "pages/tabbar/tabbar",
     "pages/customer/index/index",
     "pages/customer/discover/discover",
-    "pages/customer/social/social",
     "pages/customer/orders/orders",
     "pages/customer/my/my",
     "pages/merchant/news/news",

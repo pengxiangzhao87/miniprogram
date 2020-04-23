@@ -4,6 +4,7 @@ const cloud = require('wx-server-sdk')
 cloud.init({
   env: "ourcity-develop-f6gqc"
 })
+
 const db = cloud.database();
 const _ = db.command;
 const $ = db.command.aggregate;
@@ -13,8 +14,7 @@ exports.main = async (event, context) => {
   const orderid = event.orderid;
   const pageNum = event.pageNum;
   const pageSize = event.pageSize;
-  //商家发布的订单，关联用户信息
-  return await db.collection("cust_merchant_order").aggregate()
+  return await db.collection("merchant_cust_contact").aggregate()
     .lookup({
       from: 'chatroom',
       let: {
@@ -28,9 +28,9 @@ exports.main = async (event, context) => {
         ])))
         .project({
           _id: 1,
-          msgType: 1,
+          msgType:1,
           sendTime: 1,
-          textContent: 1
+          textContent:1
         })
         .done(),
       as: 'chatRoom'

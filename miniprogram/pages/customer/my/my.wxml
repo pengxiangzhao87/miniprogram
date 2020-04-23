@@ -1,2 +1,30 @@
 <!--pages/customer/my/my.wxml-->
-<text>pages/customer/my/my.wxml</text>
+<view class="contain" >
+<form bindsubmit="save">
+  <view class="userone">
+    <image class="user_avatar" src="{{userInfo.avatarUrl}}" bindtap="uploader" />
+    <input style="margin-left:30rpx;font-size:40rpx;width:60%" name="name" value="{{userInfo.name}}" disabled="{{disabled}}"></input>
+    <button hidden="{{disabled}}" style="padding-right:0rpx;padding-left:0rpx;width:100rpx;margin-right:10rpx;color:#cdcdcd" bindtap="cancel">取消</button>
+    <button style="padding-right:0rpx;padding-left:0rpx;width:100rpx;margin-right:10rpx;color:#FF0066" form-type="submit" >{{textWord}}</button>
+  </view>
+
+  <view style="padding-top:30rpx;width:100%;padding-bottom:30rpx;">
+    <text hidden="{{disabled}}">电话号码：</text><input name="number" placeholder="{{userInfo.number==''?'':'联系方式'}}" value="{{userInfo.number}}" disabled="{{disabled}}"></input>
+    <text hidden="{{disabled}}">商铺地址：</text><input name="address" placeholder="{{userInfo.address==''?'':'商铺地址'}}" value="{{userInfo.address}}" disabled="{{disabled}}"></input>
+    <text hidden="{{disabled}}">营业时间：</text><input name="business_hours" placeholder="{{userInfo.business_hours==''?'':'营业时间'}}" value="{{userInfo.business_hours}}" disabled="{{disabled}}"></input>
+  </view>
+  
+  <text hidden="{{disabled}}" >经营描述</text>
+  <textarea name="content" placeholder="{{userInfo.content==''?'':'经营内容、范围'}}" disabled="{{disabled}}" style="height:500rpx;" value="{{userInfo.content}}"></textarea>
+
+  <view style="padding-top:30rpx;width:100%;">
+    <view wx:for="{{userInfo.fileID}}" wx:key="index" style="position:relative;padding-left:15rpx;">
+      <block >
+        <image src="{{item}}" class="block_image" style="position:relative;width:100%;border-radius:5px;"/>
+        <image hidden="{{disabled}}" src="/images/delete_symbole.png" class="delete" data-index="{{index}}" bindtap="deleteImg"/>
+      </block>
+    </view>
+    <image hidden="{{userInfo.fileID.length==6 || disabled?true:false}}" style="width:100px;height:100px;padding-left:15rpx;background-color:#e6e6e6;" src="/images/cross_placeholder.png" mode="aspectFit" bindtap="uploader2"/>
+  </view>
+    </form>
+</view>

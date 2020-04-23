@@ -13,9 +13,11 @@ Page({
     chatRoomCollection: 'chatroom',
     chatRoomGroupId: '',
     chatRoomGroupName: '聊天室',
+    orderid:'',
     // functions for used in chatroom components
     onGetUserInfo: null,
     getOpenID: null,
+    orderid:''
   },
 
   onLoad: function(e) {
@@ -40,7 +42,8 @@ Page({
     this.setData({
       onGetUserInfo: this.onGetUserInfo,
       getOpenID: this.getOpenID,
-      chatRoomGroupId: e.groupid
+      chatRoomGroupId: e.groupid,
+      orderid: e.orderid
     })
 
     wx.getSystemInfo({
