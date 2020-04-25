@@ -2,7 +2,6 @@ let app = getApp()
 var db = wx.cloud.database();
 Page({
   data: {
-    dialogHidden:true,
     role:0,
     currentTab: 0,
     merchant: [
@@ -62,21 +61,31 @@ Page({
   },
   onLoad:function(e){
     var that = this;
+    
+    if(e.currentTab!=undefined){
+      that.setData({
+        currentTab:2
+      })
+    }
+ 
+  },
+
+  onShow:function(e){
+    var that = this;
     wx.getSetting({
       success: res => {
-        console.info('login', res.authSetting['scope.userInfo'])
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getStorage({
             key: 'openid',
-            success:res=>{
+            success: res => {
               wx.getStorage({
                 key: 'role',
-                success:res=>{
+                success: res => {
                   that.setData({
-                    role:res.data
+                    role: res.data
                   })
-                  if(res.data==1){
+                  if (res.data == 1) {
                     wx.getStorage({
                       key: 'ordertype',
                       fail: function (res) {
@@ -86,64 +95,52 @@ Page({
                           showCancel: false,
                           confirmText: '返回授权',
                           success: function (res) {
-                            that.setData({
-                              dialogHidden: false
+                            wx.redirectTo({
+                              url: '/pages/common/popup/popup'
                             })
                           }
                         })
                       }
                     })
-                  }else{
-                    that.setData({
-                      dialogHidden: true
-                    })
                   }
                 },
-                fail: function(res) {
+                fail: function (res) {
                   wx.showModal({
                     title: '警告',
                     content: '授权失效，请重新登陆',
                     showCancel: false,
                     confirmText: '返回授权',
                     success: function (res) {
-                      that.setData({
-                        dialogHidden: false
+                      wx.redirectTo({
+                        url: '/pages/common/popup/popup'
                       })
                     }
                   })
                 }
               })
             },
-            fail:res=>{
+            fail: res => {
               wx.showModal({
                 title: '警告',
                 content: '授权失效，请重新登陆',
                 showCancel: false,
                 confirmText: '返回授权',
                 success: function (res) {
-                  that.setData({
-                    dialogHidden: false
+                  wx.redirectTo({
+                    url: '/pages/common/popup/popup'
                   })
                 }
               })
             }
           })
-        }else{
-          that.setData({
-            dialogHidden: false
+        } else {
+          wx.redirectTo({
+            url: '/pages/common/popup/popup'
           })
         }
       }
     })
-    if(e.currentTab!=undefined){
-      that.setData({
-        currentTab:2
-      })
-    }
-  },
 
-  onShow:function(e){
-    wx.hideHomeButton();
   },
   swichNav: function (e) {
     var that = this;

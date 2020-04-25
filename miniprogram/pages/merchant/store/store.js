@@ -18,8 +18,10 @@ Component({
               _openid: res.data
             }).get({
               success: res => {
-                var imageUrl = res.data[0].image_url.split(',');
-                res.data[0].fileID = imageUrl;
+                if (res.data[0].image_url!=undefined){
+                  var imageUrl = res.data[0].image_url.split(',');
+                  res.data[0].fileID = imageUrl;
+                }
                 that.setData({
                   userInfo: res.data[0]
                 })
@@ -51,12 +53,19 @@ Component({
    */
   methods: {
     save:function(e){
-      console.info(e)
       var that = this;
       var disabled = that.data.disabled;
       var textWord = that.data.textWord;
       if (textWord=='保存'){
         var userInfo = that.data.userInfo;
+        if(userInfo.fileID==undefined){
+          wx.showToast({
+            title: '请添加图片',
+            icon: 'none',
+            duration: 1000
+          })
+          return;
+        }
         var timestamp = Date.parse(new Date());
         wx.getStorage({
           key: 'openid',
@@ -66,22 +75,25 @@ Component({
               _openid: openid
             }).get({
               success: res => {
-                var deleteImage = res.data[0].image_url.split(',');
+                var deleteImage = [];
                 var uploadImage = [];
+                if (res.data[0].image_url!=undefined){
+                  deleteImage = res.data[0].image_url.split(',');
+                }
                 var keepImage = '';
-                for(var index in userInfo.fileID){
+                for (var index in userInfo.fileID) {
                   var image = userInfo.fileID[index];
                   var dex = deleteImage.indexOf(image);
-                  if (image.indexOf('cloud') == 0){
-                    keepImage += image+',';
-                    if (dex > -1){
+                  if (image.indexOf('cloud') == 0) {
+                    keepImage += image + ',';
+                    if (dex > -1) {
                       deleteImage.splice(dex, 1);
                     }
-                  }else{
+                  } else {
                     uploadImage[uploadImage.length] = image;
                   }
                 }
-                if (deleteImage.length>0){
+                if (deleteImage.length > 0) {
                   //删除旧图片
                   wx.cloud.deleteFile({
                     fileList: deleteImage,
@@ -163,8 +175,10 @@ Component({
             _openid: res.data
           }).get({
             success: res => {
-              var imageUrl = res.data[0].image_url.split(',');
-              res.data[0].fileID = imageUrl;
+              if (res.data[0].image_url!=undefined){
+                var imageUrl = res.data[0].image_url.split(',');
+                res.data[0].fileID = imageUrl;
+              }
               that.setData({
                 userInfo: res.data[0],
                 disabled: !disabled,
@@ -229,8 +243,12 @@ Component({
         return;
       }
       var userInfo = that.data.userInfo;
-      var imageList = userInfo.fileID
-      var imageLength = imageList.length;
+      var imageLength = 0;
+      var imageList = [];
+      if (userInfo.fileID!=undefined){
+        imageList = userInfo.fileID
+        imageLength = imageList.length;
+      }
       var maxLength = 6 - imageLength;
       wx.chooseImage({
         count: maxLength, //最多可以选择的图片总数

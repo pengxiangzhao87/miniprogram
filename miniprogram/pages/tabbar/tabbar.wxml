@@ -1,8 +1,4 @@
 <!-- 组件显示 -->
-<view hidden="{{dialogHidden}}">
-  <popup bind:callSomeFun="onLoad"/>
-</view>
-<view hidden="{{!dialogHidden}}">
 <view class="page" hidden="{{role==0?false:true}}">
   <view hidden="{{currentTab == 0? false: true}}">
     <component_publish class="component_publish"/>
@@ -30,12 +26,11 @@
 </view>
 
 
-<!-- 自定义 tabbar -->
+  <!-- 自定义 tabbar -->
 <view class="nav-tabs">
   <view class="tab-list {{currentTab == idx ? 'active' : 'default' }}" wx:for="{{role==0?customer:merchant}}" wx:key="prototype" wx:for-index="idx" wx:for-item="item" data-current="{{idx}}" bindtap="swichNav">
     <text class="tab-text" wx:for-index="idx" data-current="{{idx}}" src="{{currentTab == idx ? item.selectedIconPath : item.iconPath }}">{{item.text}}</text>
     <image class="iconPath" wx:for-index="idx" data-current="{{idx}}" src="{{currentTab == idx ? item.selectedIconPath : item.iconPath }}"></image>
   </view>
-</view>
 </view>
 

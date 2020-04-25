@@ -12,7 +12,7 @@ Component({
   },
   pageLifetimes: {
     show() {
-      
+      wx.hideHomeButton();
     }
   },
   /**
@@ -60,6 +60,7 @@ Component({
             _openid: res.data
           }).get({
             success: res => {
+              console.info('length',res)
               if (res.data.length == 0) {
                 //增加用户信息
                 db.collection("user_info").add({
@@ -69,10 +70,11 @@ Component({
                     province: userInfo.province,
                     city: userInfo.city,
                     avatarUrl: userInfo.avatarUrl,
-                    role: this.data.role,
+                    role: that.data.role,
                     order_type: orderType
                   },
                   success: res => {
+
                     wx.setStorage({
                       key: 'role',
                       data: role,
@@ -102,6 +104,9 @@ Component({
               that.setData({
                 authHidden: true
               })
+              wx.redirectTo({
+                url: "/pages/tabbar/tabbar"
+              })
             }
           })
         }
@@ -110,19 +115,13 @@ Component({
     mearchEnter:function(e){
       var that = this;
       var role = e.target.dataset.role;
-      wx.setStorage({
-        key: 'role',
-        data: e.target.dataset.role
-      })
       // 获取用户信息
       wx.getSetting({
         success: res => {
-          console.info(res.authSetting['scope.userInfo'])
           if (res.authSetting['scope.userInfo']) {
             wx.getUserInfo({
               success: res => {
                 var userInfo = res.userInfo;
-                console.info('db',db)
                 db.collection('order_type').get({
                   success: function (res) {
                     that.setData({
@@ -130,6 +129,10 @@ Component({
                       role: role,
                       userInfo: userInfo,
                       hiddenFlag: true
+                    })
+                    wx.setStorage({
+                      key: 'role',
+                      data: e.target.dataset.role
                     })
                   }
                 })
@@ -154,10 +157,6 @@ Component({
     userEnter: function (e) {
       var that = this;
       var role = e.target.dataset.role;
-      wx.setStorage({
-        key: 'role',
-        data: e.target.dataset.role
-      })
       // 获取用户信息
       wx.getSetting({
         success: res => {
@@ -165,7 +164,6 @@ Component({
             wx.getUserInfo({
               success: res => {
                 var userInfo = res.userInfo;
-
                 wx.getStorage({
                   key: 'openid',
                   success: function (res) {
@@ -173,7 +171,6 @@ Component({
                       _openid: res.data
                     }).get({
                       success: res => {
-                        console.info('user',res)
                         if (res.data.length == 0) {
                           //增加用户信息
                           db.collection("user_info").add({
@@ -197,9 +194,16 @@ Component({
                             }, success: res => {}
                           })
                         }
+                        wx.setStorage({
+                          key: 'role',
+                          data: e.target.dataset.role
+                        })
                         that.triggerEvent('callSomeFun')
                         that.setData({
                           authHidden: true
+                        })
+                        wx.redirectTo({
+                          url: "/pages/tabbar/tabbar"
                         })
                       }, fail: res => {
                         console.info('fail', res)
