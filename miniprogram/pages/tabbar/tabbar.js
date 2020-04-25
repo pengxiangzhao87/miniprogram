@@ -2,7 +2,7 @@ let app = getApp()
 var db = wx.cloud.database();
 Page({
   data: {
-    dialogHidden:false,
+    dialogHidden:true,
     role:0,
     currentTab: 0,
     merchant: [
@@ -92,6 +92,10 @@ Page({
                           }
                         })
                       }
+                    })
+                  }else{
+                    that.setData({
+                      dialogHidden: true
                     })
                   }
                 },

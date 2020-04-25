@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: "ourcity-develop-f6gqc"
+  env: "findgoods-ox7sn"
 })
 const db = cloud.database();
 const _ = db.command;

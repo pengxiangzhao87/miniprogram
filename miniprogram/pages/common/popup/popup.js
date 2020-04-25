@@ -107,8 +107,51 @@ Component({
         }
       })
     },
+    mearchEnter:function(e){
+      var that = this;
+      var role = e.target.dataset.role;
+      wx.setStorage({
+        key: 'role',
+        data: e.target.dataset.role
+      })
+      // 获取用户信息
+      wx.getSetting({
+        success: res => {
+          console.info(res.authSetting['scope.userInfo'])
+          if (res.authSetting['scope.userInfo']) {
+            wx.getUserInfo({
+              success: res => {
+                var userInfo = res.userInfo;
+                console.info('db',db)
+                db.collection('order_type').get({
+                  success: function (res) {
+                    that.setData({
+                      orderTypeList: res.data,
+                      role: role,
+                      userInfo: userInfo,
+                      hiddenFlag: true
+                    })
+                  }
+                })
+              }
+            })
+          } else {
+            wx.showModal({
+              title: '警告',
+              content: '您拒绝授权，无法进入小程序',
+              showCancel: false,
+              confirmText: '返回授权',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击了“返回授权”')
+                }
+              }
+            })
+          }
+        }
+      })
+    },
     userEnter: function (e) {
-      
       var that = this;
       var role = e.target.dataset.role;
       wx.setStorage({
@@ -122,58 +165,48 @@ Component({
             wx.getUserInfo({
               success: res => {
                 var userInfo = res.userInfo;
-                if(role==0){
-                  wx.getStorage({
-                    key: 'openid',
-                    success: function (res) {
-                      db.collection("user_info").where({
-                        _openid: res.data
-                      }).get({
-                        success: res => {
-                          if (res.data.length == 0) {
-                            //增加用户信息
-                            db.collection("user_info").add({
-                              data: {
-                                nickName: userInfo.nickName,
-                                gender: userInfo.gender,
-                                province: userInfo.province,
-                                city: userInfo.city,
-                                avatarUrl: userInfo.avatarUrl,
-                                role: role,
-                                order_type: orderType
-                              },
-                              success: res => {}
-                            })
-                          } else {
-                            db.collection("user_info").doc(res.data[0]._id).update({
-                              data: {
-                                gender: userInfo.gender,
-                                province: userInfo.province,
-                                city: userInfo.city,
-                                role: role
-                              }, success: res => {}
-                            })
-                          }
-                          that.triggerEvent('callSomeFun')
-                          that.setData({
-                            authHidden: true
+
+                wx.getStorage({
+                  key: 'openid',
+                  success: function (res) {
+                    db.collection("user_info").where({
+                      _openid: res.data
+                    }).get({
+                      success: res => {
+                        console.info('user',res)
+                        if (res.data.length == 0) {
+                          //增加用户信息
+                          db.collection("user_info").add({
+                            data: {
+                              nickName: userInfo.nickName,
+                              gender: userInfo.gender,
+                              province: userInfo.province,
+                              city: userInfo.city,
+                              avatarUrl: userInfo.avatarUrl,
+                              role: role
+                            },
+                            success: res => {}
+                          })
+                        } else {
+                          db.collection("user_info").doc(res.data[0]._id).update({
+                            data: {
+                              gender: userInfo.gender,
+                              province: userInfo.province,
+                              city: userInfo.city,
+                              role: role
+                            }, success: res => {}
                           })
                         }
-                      })
-                    }
-                  })
-                }else{
-                  db.collection('order_type').get({
-                    success: function (res) {
-                      that.setData({
-                        orderTypeList: res.data,
-                        role: role,
-                        userInfo: userInfo,
-                        hiddenFlag: true
-                      })
-                    }
-                  })
-                }
+                        that.triggerEvent('callSomeFun')
+                        that.setData({
+                          authHidden: true
+                        })
+                      }, fail: res => {
+                        console.info('fail', res)
+                      }
+                    })
+                  }
+                })
               }
             })  
           }else{

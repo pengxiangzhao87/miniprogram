@@ -15,7 +15,7 @@ App({
         //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
         //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
         //   如不填则使用默认环境（第一个创建的环境）
-        env: 'ourcity-develop-f6gqc',
+        env: 'findgoods-ox7sn',
         traceUser: true,
       })
     }   
@@ -27,9 +27,9 @@ App({
             url: 'https://api.weixin.qq.com/sns/jscode2session',
             data: {
               //填上自己的小程序唯一标识
-              appid: 'wx73415b963d21e2f4',
+              appid: 'wxc155e0cb5efbf766',
               //填上自己的小程序的 app secret
-              secret: 'df90ec682c87d13f532c4479bf95eee8',
+              secret: '5f04e2a6ba7c110b30986d3aeb9ba0ac',
               grant_type: 'authorization_code',
               js_code: res.code
             },

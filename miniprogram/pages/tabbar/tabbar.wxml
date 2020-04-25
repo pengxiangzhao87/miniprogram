@@ -1,6 +1,8 @@
 <!-- 组件显示 -->
-
-
+<view hidden="{{dialogHidden}}">
+  <popup bind:callSomeFun="onLoad"/>
+</view>
+<view hidden="{{!dialogHidden}}">
 <view class="page" hidden="{{role==0?false:true}}">
   <view hidden="{{currentTab == 0? false: true}}">
     <component_publish class="component_publish"/>
@@ -35,7 +37,5 @@
     <image class="iconPath" wx:for-index="idx" data-current="{{idx}}" src="{{currentTab == idx ? item.selectedIconPath : item.iconPath }}"></image>
   </view>
 </view>
-
-<view hidden="{{dialogHidden}}">
-  <popup />
 </view>
+
