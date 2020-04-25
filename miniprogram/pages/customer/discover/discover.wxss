@@ -1,104 +1,71 @@
 /* pages/costomer/discover.wxss */
 
-.discover-page {
-  background: white;
-  padding: 0 30rpx;
+.contain{
+  padding-bottom: 150rpx;
 }
-
-.discover-swiper {
-  padding-top: 0rpx;
-  height: 1080rpx;
-}
-
-.line {
-  background: #ebebeb;
-  height: 2rpx;
-}
-
-.discover-heard {
-  padding-top: 15rpx;
-  padding-left: 120rpx;
-  font-size: 30rpx;
-  display: flex;
-  flex-direction: row;
-}
-
-.discover-text {
-  align-items: start;
-  justify-content: start;
-  flex: 2;
-}
-
-.discover-images {
-  flex: 1;
-}
-
-/* .discover-text {
-  text-align: center;
-  padding: 10rpx;
-} */
-
-.discover-btn {
-  margin: 10rpx;
-}
-
-.title {
-  padding-top: 10rpx;
+.title{
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: center;  
 }
 
-.big {
+.big{
   font-size: 40rpx;
   font-weight: bold;
 }
-
-.big.small {
+.big.small{
   font-size: 25rpx;
 }
 
-.userone {
+.userone{
   display: flex;
   flex-direction: row;
   align-content: center;
   align-items: center;
 }
 
-.user_avatar {
+.user_avatar{
   border-radius: 25px;
-  width: 100rpx;
+  width:100rpx;
   height: 100rpx;
+  
 }
 
-.news, .contact {
+.my, .news {
+  padding-top: 30rpx;
   padding-left: 30rpx;
-  padding-right: 30rpx;
+  padding-right:30rpx;
+
 }
 
-.textflow {
-  padding-left: 120rpx;
+
+.textflow{
+  padding-left:120rpx;
   display: -webkit-box;
-  word-break: break-all;
-  text-overflow: ellipsis;
-  font-size: 30rpx;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+ word-break: break-all;
+ text-overflow: ellipsis;
+ font-size: 30rpx;
+ overflow: hidden;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp:3;
+
 }
 
-.global_img {
-  padding-top: 15rpx;
-  padding-left: 110rpx;
-  display: flex;
+
+.global_img{
+  padding-top:15rpx;
+  padding-left:110rpx;
+ display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: center; 
+
 }
 
-.global_img image {
-  margin-left: 10rpx;
-  width: 180rpx;
+.global_img image{
+  margin-left:10rpx;
+  width:180rpx;
   height: 170rpx;
   border-radius: 5px;
 }
+

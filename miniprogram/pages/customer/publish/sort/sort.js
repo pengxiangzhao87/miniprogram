@@ -24,18 +24,15 @@ Page({
     var db = wx.cloud.database();
     db.collection("order_type").get({
       success: function(res) {
-        console.log("res = " + JSON.stringify(res))
         _this.setData({
           list: res.data,
         })
-        console.log("list = " + JSON.stringify(list))
       }
     })
   },
 
   onClickType: function(e) {
     var result = e.currentTarget.dataset.bean;
-    console.log("result= " + JSON.stringify(result))
     wx.navigateBack({
       url: '../publish?typeName=' + result.type_name,
     })

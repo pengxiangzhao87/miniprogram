@@ -1,47 +1,35 @@
+var util = require('../../../../utils/util.js')
+var db = wx.cloud.database();
+
 Page({
   data: {
-    id:'',
-    merchantInfo:{},
-    info:''
+    detail: {}
   },
-  onReady: function () {
-    console.log("shopname onReady")
+  onLoad: function (e) {
+    var detail = JSON.parse(e.detail);
+    this.setData({
+      detail: detail,
+    })
   },
-  onLoad(options) {
-    this.getMerchantInfo(options.id)
-  },
-  
-  // 获取店铺信息
-  getMerchantInfo:function(Id){
-    var db = wx.cloud.database();
-    var _this = this;
-    db.collection('user_info').where({
-      _id:Id
-    }).get({
-      success:function(res){
-        console.log("res = "+JSON.stringify(res))
-        wx.setNavigationBarTitle({
-          title: res.data[0].name,
-        })
-        _this.setData({
-          merchantInfo:res.data[0],
-          info:JSON.stringify(res)
+  toRoom: function () {
+    var detail = this.data.detail;
+    //更新商家端，消息-联系，最后聊天时间1
+    wx.getStorage({
+      key: 'openid',
+      success: function (res) {
+        var openid = res.data;
+        wx.navigateTo({
+          url: '/pages/common/room/room?groupid=' + openid + '__' + detail._openid
         })
       }
     })
   },
-  //点击关注
-  onAttention:function(){
-    wx.showToast({
-      title: '关注成功',
-      icon:'none'
+  enlargeImg: function (e) {
+    var index = e.target.dataset.index
+    var detail = this.data.detail
+    wx.previewImage({
+      current: detail.images[index],  //当前预览的图片
+      urls: detail.images  //所有要预览的图片
     })
   },
-   //查看更多
-   onSeeMore:function(){
-    wx.showToast({
-      title: '查看更多',
-      icon:'none'
-    })
-  }
 })

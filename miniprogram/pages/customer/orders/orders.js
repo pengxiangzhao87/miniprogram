@@ -19,7 +19,7 @@ Component({
           var pageSize = that.data.pageSize;
           db.collection('cust_order').where({
             _openid:openid
-          }).skip(pageNum).limit(pageSize).get({
+          }).skip((pageNum-1)*pageSize).limit(pageSize).get({
             success:res=>{
               that.setData({
                 order: res.data
@@ -43,7 +43,7 @@ Component({
   data: {
     order: [],
     pageNum: 1,
-    pageSize: 5
+    pageSize: 10
   },
 
   /**

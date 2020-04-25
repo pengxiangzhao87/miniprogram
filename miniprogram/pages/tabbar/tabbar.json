@@ -1,9 +1,8 @@
 {
   "usingComponents": {
-    "component_index": "/pages/customer/home/home",
+    "component_publish": "/pages/customer/publish/publish",
     "component_discover": "/pages/customer/discover/discover",
     "component_orders": "/pages/customer/orders/orders",
-    "component_my": "/pages/customer/my/my",
     "component_news": "/pages/merchant/news/news",
     "component_active": "/pages/merchant/active/active",
     "component_plaza": "/pages/merchant/plaza/plaza",

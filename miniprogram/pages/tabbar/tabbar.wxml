@@ -1,20 +1,15 @@
 <!-- 组件显示 -->
-<view hidden="{{dialogHidden}}">
-  <popup bind:callSomeFun="onLoad"/>
-</view>
+
 
 <view class="page" hidden="{{role==0?false:true}}">
   <view hidden="{{currentTab == 0? false: true}}">
-    <component_index class="component_index"/>
+    <component_publish class="component_publish"/>
   </view>
   <view hidden="{{currentTab == 1? false: true}}">
     <component_discover class="component_discover"/>
   </view>
   <view hidden="{{currentTab == 2? false: true}}">
     <component_orders class="component_orders"/>
-  </view>
-  <view hidden="{{currentTab == 3? false: true}}">
-    <component_my class="component_my"/>
   </view>
 </view>
 <view class="page"  hidden="{{role==1?false:true}}">
@@ -41,3 +36,6 @@
   </view>
 </view>
 
+<view hidden="{{dialogHidden}}">
+  <popup />
+</view>

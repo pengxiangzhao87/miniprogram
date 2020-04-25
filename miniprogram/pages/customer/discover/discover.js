@@ -1,92 +1,262 @@
 // pages/costomer/discover.js
+var app = getApp()
+var startX, endX;
+var moveFlag = true;// 判断执行滑动事件
+var db = wx.cloud.database();
 Component({
+  /**
+    * 组件的初始数据
+    */
+  data: {
+    page: 1,
+    ani1: '',
+    ani2: '',
+    myList: [],
+    newsList: [],
+    pageNum1: 1,
+    pageSize1: 10,
+    pageNum2: 1,
+    pageSize2: 10
+  },
+
   pageLifetimes: {
     show() {
-      if (typeof this.getTabBar === 'function' &&
+      var that = this;
+      if (typeof that.getTabBar === 'function' &&
         this.getTabBar()) {
         this.getTabBar().setData({
           selected: 0
         })
       }
-      this.initData()
-    },
+      var pageNum = that.data.pageNum1;
+      var pageSize = that.data.pageSize1;
+      wx.cloud.callFunction({
+        name: 'merchantOrder',
+        data: { pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
+        success: res => {
+          var result = res.result.list;
+          for (var index in result) {
+            result[index].images = result[index].fileID.split(',');
 
-  },
-  
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-
-  },
-
-  /**
-   * 组件的初始数据
-   */
-  data: {
-    page: 0,
-    pageNum1: 1,
-    pageSize1: 10,
-    newsList: [],
-    contactList: []
+          }
+          that.setData({
+            myList: result
+          })
+        },
+        fail: err => { }
+      })
+    }
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
+    toCustContact: function (e) {
+      var index = e.currentTarget.dataset.index
+      var detail = this.data.myList[index];
+      wx.navigateTo({
+        url: '/pages/customer/discover/orderDetail/orderDetail?detail=' + JSON.stringify(detail)+'&flag=0'
+      })
 
-    /**
-     * 页面滑动处理
-     */
-    scrollPage: function(event) {
-      if (event.detail.source == "touch") {
-        this.setData({
-          page: event.detail.current
+    },
+    toMerchantOrderDetail: function (e) {
+      var index = e.currentTarget.dataset.index
+      var detail = this.data.newsList[index];
+      wx.navigateTo({
+        url: '/pages/customer/discover/orderDetail/orderDetail?detail=' + JSON.stringify(detail) + '&flag=1'
+      })
+    },
+    reachBottom: function (e) {
+      var that = this;
+      if (that.data.page == 1) {
+        var num = that.data.pageNum1 + 1;
+        that.setData({
+          pageNum1: num
+        })
+        var pageSize = that.data.pageSize1;
+        //用户订单、用户信息连表查询
+        wx.cloud.callFunction({
+          name: 'merchantOrder',
+          data: {pageNum: (num - 1) * pageSize, pageSize: pageSize },
+          success: res => {
+            var result = res.result.list;
+            for (var index in result) {
+              result[index].images = result[index].fileID.split(',');
+            }
+            var resultList = that.data.myList.concat(result);
+            that.setData({
+              myList: resultList
+            })
+          },
+          fail: err => { }
+        })
+      } else {
+        var num = that.data.pageNum2 + 1;
+        that.setData({
+          pageNum2: num
+        })
+        var pageSize = that.data.pageSize2;
+        wx.getStorage({
+          key: 'openid',
+          success: function (res) {
+            var openid = res.data;
+            wx.cloud.callFunction({
+              name: 'merchantOrder',
+              data: { openid: openid, pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
+              success: res => {
+                var result = res.result.list;
+                for (var index in result) {
+                  result[index].images = result[index].fileID.split(',');
+
+                }
+                var newsList = that.data.newsList.concat(result);
+                that.setData({
+                  newsList: newsList
+                })
+              },
+              fail: err => { }
+            })
+          },
         })
       }
+
     },
-    /**
-     * 获取数据
-     */
-    initData: function() {
-      var pageNum = this.data.pageNum1;
-      var pageSize = this.data.pageSize1;
-      //用户订单、用户信息连表查询
+    getNewsList: function () {
+      var that = this;
+      var pageNum = that.data.pageNum2;
+      var pageSize = that.data.pageSize2;
+      wx.getStorage({
+        key: 'openid',
+        success: function(res) {
+          var openid = res.data;
+          wx.cloud.callFunction({
+            name: 'custContactMerchant',
+            data: { openid:openid,pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
+            success: res => {
+              var result = res.result.list;
+              console.info(result)
+              for (var index in result) {
+                result[index].images = result[index].merchant[0].fileID.split(',');
+
+              }
+              that.setData({
+                newsList: result
+              })
+            },
+            fail: err => { }
+          })
+        },
+      })
+    },
+    getMyList: function () {
+      var that = this;
+      var pageNum = that.data.pageNum1;
+      var pageSize = that.data.pageSize1;
       wx.cloud.callFunction({
         name: 'merchantOrder',
-        data: {
-          pageNum: 1,
-          pageSize: 10
-        },
+        data: {pageNum: (pageNum - 1) * pageSize, pageSize: pageSize },
         success: res => {
-          console.log("res = " + JSON.stringify(res))
           var result = res.result.list;
           for (var index in result) {
             result[index].images = result[index].fileID.split(',');
+
           }
-          this.setData({
-            newsList: result
+          that.setData({
+            myList: result
           })
         },
-        fail: err => {
-          console.log("err = " + JSON.stringify(err))
-        }
+        fail: err => { }
       })
     },
-      //跳转详情
-      toOrderDetail:function(e){
-        var index = e.currentTarget.dataset.index
-        var detail = {};
-        if (this.data.page == 0) {
-          detail = this.data.newsList[index];
-        } else {
-          detail = this.data.contactList[index];
+    touchStart: function (e) {
+      startX = e.touches[0].pageX; // 获取触摸时的原点
+      moveFlag = true;
+    },
+    // 触摸移动事件
+    touchMove: function (e) {
+      endX = e.touches[0].pageX; // 获取触摸时的原点
+      if (moveFlag) {
+        if (endX - startX > 50) {
+          this.move2right();
+          moveFlag = false;
         }
-        wx.navigateTo({
-          url: '/pages/merchant/orderDetail/orderDetail?detail=' + JSON.stringify(detail)
+        if (startX - endX > 50) {
+          this.move2left();
+          moveFlag = false;
+        }
+      }
+    },
+
+    // 触摸结束事件
+    touchEnd: function (e) {
+      moveFlag = true; // 回复滑动事件
+    },
+
+    //向左滑动操作
+    move2left() {
+      var that = this;
+      var page = that.data.page;
+      if (page == 2) {
+        return
+      } else {
+        var animation = wx.createAnimation({
+          duration: 1000,
+          timingFunction: 'ease',
+          delay: 100
+        });
+        animation.opacity(0.2).translate(-500, 0).step()
+        //获取最新数据
+        if (that.data.newsList.length == 0) {
+          that.getNewsList();
+        }
+        that.setData({
+          ani1: animation.export()
         })
-      },
-      
+        setTimeout(function () {
+          that.setData({
+            page: page + 1,
+            ani2: ''
+          });
+        }, 800)
+      }
+
+    },
+
+    //向右滑动操作
+    move2right() {
+      var that = this;
+      var page = that.data.page;
+      if (page == 1) {
+        return
+      } else {
+        var animation = wx.createAnimation({
+          duration: 1000,
+          timingFunction: 'ease',
+          delay: 100
+        });
+        animation.opacity(0.2).translate(500, 0).step()
+        if (that.data.newsList.length == 0) {
+          that.getMyList();
+        }
+        that.setData({
+          ani2: animation.export()
+        })
+        setTimeout(function () {
+          that.setData({
+            page: page - 1,
+            ani1: ''
+          });
+        }, 800)
+      }
+    }
+  },
+
+  /**
+ * 组件的属性列表
+ */
+  properties: {
+
   }
+
 })

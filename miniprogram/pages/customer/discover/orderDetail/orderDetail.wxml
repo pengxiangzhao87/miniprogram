@@ -1,0 +1,17 @@
+<!--pages/customer/discover/orderDetail/orderDetail.wxml-->
+<view class="contain">
+  <view class="userone">
+    <image class="user_avatar" src="{{detail.userInfo[0].avatarUrl==undefined?detail.avatarUrl:detail.userInfo[0].avatarUrl}}"></image>
+    <view>
+      <view style="font-size:35rpx;padding-left:20rpx;">{{detail.userInfo[0].nickName==undefined?detail.name:detail.userInfo[0].nickName}}</view>
+      <view style="font-size:25rpx;padding-left:20rpx;color:#bfbfbf">{{detail.create_date==undefined?detail.createDate:detail.create_date}}</view>
+    </view>  
+    <button bindtap="toRoom" style="width:100rpx;border-radius:15rpx;font-size:25rpx; background-color: #FF0066;color: white; align-content: center;padding-left:0rpx;padding-right:0rpx;margin-right:30rpx;">消息</button>
+  </view>
+  <view>{{detail.orderContent==undefined?item.merchant[0].orderContent:detail.orderContent}}</view>
+
+  <view wx:for="{{detail.images}}" wx:key="index"  wx:for-item="item">
+    <image data-index="{{index}}" data-dex="0" src="{{item}}" bindtap="enlargeImg"></image>
+  </view>  
+</view>
+

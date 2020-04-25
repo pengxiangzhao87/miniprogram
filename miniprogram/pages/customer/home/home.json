@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "mp-searchbar": "../../../miniprogram_npm/weui-miniprogram/searchbar/searchbar"
+    "mp-searchbar": "../../../miniprogram_npm/weui-miniprogram/searchbar/searchbar",
+    "publish":"/pages/customer/publish/publish"
   },
   "navigationBarTitleText": "OurCity"
 }

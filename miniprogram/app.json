@@ -1,16 +1,14 @@
 {
   "pages": [
     "pages/tabbar/tabbar",
-    "pages/customer/index/index",
     "pages/customer/discover/discover",
     "pages/customer/orders/orders",
-    "pages/customer/my/my",
     "pages/merchant/news/news",
     "pages/merchant/active/active",
     "pages/merchant/plaza/plaza",
     "pages/merchant/store/store",
     "pages/component/userInfo/userInfo",
-    "pages/customer/home/home",
+    "pages/customer/publish/publish",
     "pages/customer/home/shopname/shopname",
     "pages/customer/publish/sort/sort"
   ],

@@ -1,22 +1,33 @@
 <view class="home">
-	<cover-view class="home-search">
-		<mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
-		<button class="home-search-publish" bindtap="onPublish">发布</button>
-	</cover-view>
-	<view class="home-list">
-		<view class="kind-list">
-			<block wx:for-items="{{merchantInfo}}" wx:key="index">
-				<view class="kind-list-item ">
-					<navigator url="../../pages/customer/home/shopname/shopname?id={{merchantInfo[index]._id}}" class="nav-box" hover-class="nav_active">
-						<!-- <image class="home-list-image" src="../../../images/icon" /> -->
-						<icon class="icon-box-img" type="info" size="93"></icon>
-						<view class="nav-text-view">
-							<view class="nav-text-large">{{merchantInfo[index].name}}</view>
-							<view class="nav-text">{{merchantInfo[index].content}}</view>
-						</view>
-					</navigator>
-				</view>
-			</block>
-		</view>
+	<view class="home-search">
+		<view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+          <!-- 搜索框 -->
+          <view class="weui-search-bar__box">
+              <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+              <input type="text" value="{{value}}" confirm-type="search"  bindconfirm="bindconfirm" bindinput="getSearchValue"  class="weui-search-bar__input" placeholder="请输入搜索内容"/>
+          </view>
+        </view>
+        <!-- 搜索按钮,调用搜索查询方法 -->
+        <view class="weui-search-bar__cancel-btn" bindtap="bindconfirm" >{{text}}</view>
+    </view>
+		<button class="home-search-publish" style="padding-right:0rpx;padding-left:0rpx;width:100rpx;x;color:#FF0066" bindtap="onPublish">发布</button>
 	</view>
+  <view class="contain">
+    <view wx:for="{{merchantInfo}}" wx:key="index"  wx:for-item="item">
+      <view data-index="{{index}}" bindtap="toShop">
+        <view class="userone">
+          <image class="user_avatar" src="{{item.avatarUrl}}"></image>
+          <view style="font-size:35rpx;padding-left:20rpx;">{{item.name}}</view>
+        </view>
+        <view class="textflow">{{item.content}}</view>
+      </view>
+       <view class="global_img" >
+        <image data-index="{{index}}" data-dex="0" src="{{item.images[0]}}" bindtap="enlargeImg"></image>
+        <image data-index="{{index}}" data-dex="1" src="{{item.images[1]}}" bindtap="enlargeImg"></image>
+        <image data-index="{{index}}" data-dex="2" src="{{item.images[2]}}" bindtap="enlargeImg"></image>
+      </view> 
+      <image style="height:20rpx;margin-bottom: 20rpx;margin-top:20rpx;width:100%" src="/images/line.png"></image>
+    </view>
+  </view>
 </view>

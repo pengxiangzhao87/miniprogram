@@ -2,7 +2,7 @@ let app = getApp()
 var db = wx.cloud.database();
 Page({
   data: {
-    dialogHidden:true,
+    dialogHidden:false,
     role:0,
     currentTab: 0,
     merchant: [
@@ -33,8 +33,8 @@ Page({
     ],
     customer:[
       {
-        "pagePath": "/pages/customer/home/home",
-        "text": "首页",
+        "pagePath": "/pages/customer/publish/publish",
+        "text": "发布",
         "iconPath": "/images/publish.png",
         "selectedIconPath": "/images/publish.png"
       },
@@ -49,13 +49,14 @@ Page({
         "text": "订单",
         "iconPath": "/images/my.png",
         "selectedIconPath": "/images/selected_my.png"
-      },
-      {
-        "pagePath": "/pages/customer/my/my",
-        "text": "我的",
-        "iconPath": "/images/my.png",
-        "selectedIconPath": "/images/selected_my.png"
       }
+      // ,
+      // {
+      //   "pagePath": "/pages/customer/my/my",
+      //   "text": "我的",
+      //   "iconPath": "/images/my.png",
+      //   "selectedIconPath": "/images/selected_my.png"
+      // }
 
     ]
   },
@@ -63,6 +64,7 @@ Page({
     var that = this;
     wx.getSetting({
       success: res => {
+        console.info('login', res.authSetting['scope.userInfo'])
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getStorage({
@@ -153,7 +155,7 @@ Page({
     var selectComponent = null;
    
     if(this.data.role==0){
-      selectComponent = this.data.currentTab == 0 ? '.component_index' : (this.data.currentTab == 1 ? '.component_discover' : (this.data.currentTab == 2 ? '.component_orders' : ''));
+      selectComponent = this.data.currentTab == 0 ? '.component_publish' : (this.data.currentTab == 1 ? '.component_discover' : '.component_orders');
     }else{
       selectComponent = this.data.currentTab == 0 ? '.component_news' : (this.data.currentTab == 1 ? '.component_active' : (this.data.currentTab == 2 ? '.component_plaza' :''));
     }

@@ -1,3 +1,4 @@
+var util = require('../../../utils/util.js')
 Component({
 
   data: {
@@ -7,51 +8,37 @@ Component({
     //当前选择的生鲜类型
     currentType: {},
     typeNames: [],
-    currentIndex: 0
+    currentIndex:0 ,
+    list:[]
   },
   pageLifetimes: {
     show() {
       if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-        console.info("pub")
         this.getTabBar().setData({
           selected: 0
         })
       }
       // 获得dialog组件
       this.userInfo = this.selectComponent("#getUserInfo");
+    },
 
-      console.log("show = " + JSON.stringify(this.options))
-    },
-    onLoad: function(options) {
-      console.log("1e = " + e)
-    },
-  },
-  onLoad: function(options) {
-    console.log("2e = " + e)
   },
   ready: function() {
-    console.log("ready = " + JSON.stringify(this.options))
-    wx.setNavigationBarTitle({
-      title: "发布",
-    });
     var _this = this;
     var db = wx.cloud.database();
     db.collection("order_type").get({
       success: function(res) {
-        console.log("res = " + JSON.stringify(res))
         var _typeNmes = [];
         for (var i = 0; i < res.data.length; i++) {
           _typeNmes.push(res.data[i].type_name)
         }
         _this.setData({
-          typeNames: _typeNmes
+          typeNames: _typeNmes,
+          list:res.data
         })
-        console.log("list = " + JSON.stringify(list))
+
       }
     })
-  },
-  attached: function() {
-    console.log("attached = " + JSON.stringify(this.options))
   },
 
   methods: {
@@ -60,7 +47,7 @@ Component({
         currentIndex: e.detail.value
       })
     },
-
+    reachBottom:function(){},
     uploader: function() {
       var that = this;
       var imageList = that.data.imagesList;
@@ -127,7 +114,6 @@ Component({
     enlargeImg: function(e) {
       var index = e.target.dataset.index
       var imagesList = this.data.imagesList
-      console.info(imagesList)
       wx.previewImage({
         current: imagesList[index], //当前预览的图片
         urls: imagesList, //所有要预览的图片
@@ -136,46 +122,69 @@ Component({
 
     //表单提交
     formSubmit: function(e) {
-      // wx.hideLoading()
+
+      var list = this.data.list;
+      var index = this.data.currentIndex;
       var goodsinfo = e.detail.value;
       var db = wx.cloud.database();
-      db.collection('cust_order').add({
-        data: {
-          create_date: new Date(),
-          customer_id: "aa",
-          express_type: goodsinfo.expressType,
-          order_content: goodsinfo.orderContent
-        },
-        success: res => {
+      wx.getStorage({
+        key: 'openid',
+        complete: res => {
+          var openid = res.data;
           // 上传图片
           var imagesList = this.data.imagesList
+          var fileID = '';
+          var timestamp = Date.parse(new Date());
+          var flag = 0;
           for (var index in imagesList) {
             wx.cloud.uploadFile({
-              cloudPath: "openId/" + index,
+              cloudPath: openid + "/" + timestamp + '_' + index,
               filePath: imagesList[index],
               success: res => {
-                //跳转到消息tbar页
-                wx.switchTab({
-                  url: '/pages/index/index',
-                  success: res => {
-                    wx.showToast({
-                      icon: 'none',
-                      title: '上传成功'
-                    })
-                  }
-                })
+                fileID += res.fileID + ',';
               },
               fail: e => {
                 wx.showToast({
                   icon: 'none',
-                  title: '上传失败'
+                  title: '上传失败',
+                  duration: 1000
                 })
               },
-              complete: () => {}
+              complete: () => {
+                //都上传完以后，新增订单
+                if (flag == imagesList.length - 1) {
+                  db.collection('cust_order').add({
+                    data: {
+                      create_date: util.formatTime(new Date()),
+                      express_type: goodsinfo.radio,
+                      order_content: goodsinfo.content,
+                      order_type: list[index]._id,
+                      name: goodsinfo.name,
+                      price: goodsinfo.price,
+                      state: 0,
+                      fileID: fileID.substring(0, fileID.length - 1)
+                    },
+                    success: res => {
+                      wx.showToast({
+                        title: '发布成功',
+                        icon: 'success'
+                      })
+                    },fail: e => {
+                      wx.showToast({
+                        icon: 'none',
+                        title: '上传失败'
+                      })
+                    }
+                  })
+                } else {
+                  ++flag;
+                }
+              }
             })
           }
         }
       })
+ 
     }
   }
 

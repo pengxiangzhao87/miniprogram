@@ -1,0 +1,22 @@
+/* pages/customer/discover/orderDetail/orderDetail.wxss */
+.contain{
+  padding-left: 30rpx;
+  padding-right:30rpx;
+}
+
+.userone{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+
+}
+
+.user_avatar{
+  border-radius: 25px;
+  width:100rpx;
+  height: 100rpx;
+  
+}
+
+ 

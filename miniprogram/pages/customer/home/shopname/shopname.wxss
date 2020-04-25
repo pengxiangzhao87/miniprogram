@@ -1,76 +1,19 @@
-.shop {
+.contain{
+  padding-left: 30rpx;
+  padding-right:30rpx;
+}
+
+.userone{
   display: flex;
-  padding: 0 30rpx 0 40rpx;
+  flex-direction: row;
+  align-content: center;
   align-items: center;
+
 }
 
-.shop-text {
-  padding-top: 10rpx;
-}
-
-.shop-text-image {
-  padding: 0 30rpx 0 40rpx;
-  align-items: center;
-}
-
-.shop-image {
-  align-items: center;
-}
-
-.shop-number {
-  width: 100%;
-}
-
-.shop-dis {
-  width: 100%;
-  font-size: 14px;
-  color: #555555;
-}
-
-.shop-name {
-  width: 100%;
-  text-decoration-color: inherit;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.shop-name-right {
-  width: 100%;
-  font-size: 14px;
-  text-align: end;
-  color: #555555;
-}
-
-.shop-name-min {
-  width: 100%;
-  font-size: 12px;
-  color: #555555;
-}
-
-.shop-icon {
-  padding: 10rpx;
-  align-items: center;
-}
-
-.height-line {
-  height: 10rpx;
-  margin-top: 10rpx;
-  margin: 0 30rpx 0 40rpx;
-  margin-bottom: 10rpx;
-  background: #ebebeb;
-}
-
-.shop-last-state {
-  padding: 15rpx 20rpx 15rpx 20rpx;
-  background-color: #ebebeb;
-  border-radius: 50rpx;
-}
-
-.shop-flex {
-  justify-content: center;
-  flex: 1;
-}
-
-.shop-flex-image {
-  width: 100%;
+.user_avatar{
+  border-radius: 25px;
+  width:100rpx;
+  height: 100rpx;
+  
 }

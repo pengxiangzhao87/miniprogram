@@ -1,11 +1,11 @@
 <!--/pages/publish/publish.wxml-->
 
-<view>
-
+<view >
+<form bindsubmit="formSubmit">
   <mp-cells>
 
     <mp-cell prop="name" title="名称">
-      <input bindinput="formInputChange" data-field="name" class="publish-input" placeholder="商家第一时间看到" />
+      <input  name="name" class="publish-input" placeholder="商家第一时间看到" />
     </mp-cell>
     <mp-cell prop="name" title="类型">
       <picker bindchange="bindCountryChange" value="{{currentIndex}}" range="{{typeNames}}">
@@ -17,7 +17,7 @@
     </mp-cell>
 
     <mp-cell prop="name" title="价格">
-      <input bindinput="formInputChange" data-field="name" class="publish-input" placeholder="请输入期望价格" />
+      <input  name="price" class="publish-input" placeholder="请输入期望价格" />
     </mp-cell>
 
   </mp-cells>
@@ -25,20 +25,27 @@
   <view class="publish-radio publish-radio-gap">
     <radio-group name="radio">
       <label>
-        <radio value="radio1" checked="true" />自取 </label>
+        <radio value="0" checked="true" />自取 </label>
       <label>
-        <radio value="radio2" />送货 </label>
+        <radio value="1" />送货 </label>
     </radio-group>
   </view>
   <view class="publish-textarea">
-    <textarea auto-focus="true" style="height: 5em" placeholder="品牌型号,需要的重量,时间地点" />
+    <textarea auto-focus="true" name="content" style="height: 5em" placeholder="品牌型号,需要的重量,时间地点" />
   </view>
   <view class="page__bd">
-    <mp-cells>
-      <mp-cell>
-        <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}" files="{{files}}" max-count="5" title="图片上传" tips="请选择需要上传的图片"></mp-uploader>
-      </mp-cell>
-    </mp-cells>
+    <view class="imageBlock">
+      <view wx:for="{{imagesList}}" wx:key="index" style="position:relative;width:30%;height:120px;padding-left:15rpx;">
+        <block >
+          <image src="{{item}}" class="block_image" style="position:relative;width:100%;height:120px;border-radius:5px;" bindtap="enlargeImg"/>
+          <image  src="/images/delete_symbole.png" class="delete" data-index="{{index}}" bindtap="deleteImg"/>
+        </block>
+      </view>
+      <image hidden="{{imagesList.length==3?true:false}}" style="width:100px;height:100px;padding-left:15rpx;background-color:#e6e6e6;" src="/images/cross_placeholder.png" mode="aspectFit" bindtap="uploader"/>
+    </view>
+    <button style="position:fixed;bottom:15%;width:100px;border-radius:15rpx;padding-left:0rpx;padding-right:0rpx;background-color:#FF0066;color:white;font-size:30rpx;border:none;margin-left:10%;" form-type="submit" lang="zh_CN" plain='true'>立即发布</button>
+    <button style="position:fixed;bottom:15%;width:100px;border-radius:15rpx;padding-left:0rpx;padding-right:0rpx;background-color:#1296db;color:white;font-size:30rpx;border:none;margin-left:60%;" form-type="reset" lang="zh_CN" plain='true'>重置</button> 
   </view>
-  <button class="publish-submit" form-type="submit" lang="zh_CN" plain='true'>立即发布</button>
+
+   </form>
 </view>
