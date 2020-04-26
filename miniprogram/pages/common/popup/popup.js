@@ -60,7 +60,6 @@ Component({
             _openid: res.data
           }).get({
             success: res => {
-              console.info('length',res)
               if (res.data.length == 0) {
                 //增加用户信息
                 db.collection("user_info").add({
